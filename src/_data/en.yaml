@@ -1,0 +1,121 @@
+# ========================================================
+#  English content — edit via Pages CMS or directly in this file.
+#  Every save rebuilds and auto-publishes the site.
+# ========================================================
+
+meta:
+  title: "Metro CAT (Metro Machinery) | Authorized Caterpillar Dealer in Thailand"
+  description: "Metro Machinery (Metro CAT) is the sole authorized Caterpillar dealer in Thailand since 1977. Buy & rent CAT excavators, loaders, mining equipment, engines, generators, genuine parts and certified service across 35+ branches."
+  keywords: "Metro CAT, Metro Machinery, Caterpillar Thailand, CAT dealer Thailand, CAT excavator, CAT loader, heavy equipment Thailand, Caterpillar parts, CAT generators, mining equipment, construction equipment Thailand"
+
+nav:
+  home: "Home"
+  about: "About"
+  products: "Products"
+  services: "Services"
+  why: "Why Us"
+  faq: "FAQ"
+  contact: "Contact Us"
+
+hero:
+  eyebrow: "Authorized Caterpillar® Dealer in Thailand · Since 1977"
+  title: "Power Your Projects with Metro CAT"
+  lead: "Metro Machinery (Metro CAT) is the sole authorized Caterpillar dealer in Thailand, delivering world-class heavy equipment, engines, generators, genuine parts and certified service across 35+ branches."
+  cta_primary: "Explore Equipment"
+  cta_secondary: "Request a Quote"
+  stats:
+    - value: "1977"
+      label: "Established"
+    - value: "35+"
+      label: "Branches"
+    - value: "920+"
+      label: "Trained staff"
+    - value: "25,000+"
+      label: "Genuine parts"
+
+about:
+  title: "About Metro Machinery"
+  p1: "Founded in 1977 by the Burapachaisri family, Metro Machinery Co., Ltd. (Metro CAT) is the sole authorized Caterpillar® dealer in Thailand. For nearly five decades we have powered the nation's construction, mining, energy and industrial sectors with reliable Caterpillar machines and the people to keep them running."
+  p2: "Today Metro CAT spans more than 35 branches nationwide and subsidiary operations in Cambodia, Laos and China, backed by over 920 highly trained personnel. Our mission is simple: to help customers achieve the lowest owning and operating cost while maximizing uptime and productivity."
+  promise_title: "Our Promise"
+  promise:
+    - "Genuine Caterpillar equipment and parts"
+    - "Factory-trained technicians nationwide"
+    - "Rapid parts availability and support"
+    - "Solutions for every job size and industry"
+
+products:
+  title: "Caterpillar Products We Offer"
+  intro: "From a single excavator to a full mining fleet, Metro CAT supplies the complete Caterpillar lineup for construction, mining, power and marine applications."
+  items:
+    - title: "Excavators & Loaders"
+      desc: "Powerful, fuel-efficient CAT excavators, wheel loaders and dozers built for demanding construction and earthmoving work."
+    - title: "Mining Equipment"
+      desc: "Heavy-duty machines engineered for safe, high-volume mining and quarrying operations across Thailand and the region."
+    - title: "Engines & Generators"
+      desc: "Caterpillar diesel engines and generator sets for industrial, marine, petroleum and standby power generation."
+    - title: "Material Handling"
+      desc: "Reliable handling solutions to move, lift and load materials efficiently in ports, yards and warehouses."
+    - title: "Agriculture & Industry"
+      desc: "Equipment tailored for agricultural, petroleum and general industrial applications."
+    - title: "Genuine Parts"
+      desc: "Over 25,000 genuine Caterpillar parts and components stocked for fast, dependable delivery."
+
+services:
+  title: "Service & Support That Keeps You Running"
+  intro: "Owning a machine is only the beginning. Metro CAT's certified service network keeps your equipment productive throughout its entire life."
+  items:
+    - title: "Machine Rebuild"
+      desc: "Plan your rebuild period with our team to restore like-new performance and reduce unplanned downtime."
+    - title: "Engine Reconditioning"
+      desc: "Trained technicians recondition engines, transmissions and hydraulic systems to factory standards."
+    - title: "Preventive Maintenance"
+      desc: "Scheduled servicing and inspections that extend component life and protect your investment."
+    - title: "Parts & Logistics"
+      desc: "A nationwide parts network ensures the right component reaches your site when you need it."
+
+why:
+  title: "Why Choose Metro CAT"
+  items:
+    - num: "01"
+      title: "The Only Authorized CAT Dealer"
+      desc: "As Caterpillar's sole authorized dealer in Thailand, every product and part you receive is 100% genuine and fully supported."
+    - num: "02"
+      title: "Nearly 50 Years of Trust"
+      desc: "Since 1977 we have built lasting partnerships with Thailand's leading contractors, miners and energy producers."
+    - num: "03"
+      title: "Nationwide Coverage"
+      desc: "35+ branches and 920+ experts mean help is never far away — wherever your project is located."
+    - num: "04"
+      title: "Lowest Cost of Ownership"
+      desc: "Genuine parts, expert service and proven uptime deliver the best long-term value for your fleet."
+
+faq:
+  title: "Frequently Asked Questions"
+  items:
+    - q: "Who is the authorized Caterpillar dealer in Thailand?"
+      a: "Metro Machinery Co., Ltd. (Metro CAT) is the sole authorized Caterpillar dealer in Thailand and has represented Caterpillar nationwide since 1977."
+    - q: "What products does Metro CAT sell?"
+      a: "Metro CAT supplies Caterpillar machines for construction, mining, material handling, agriculture, petroleum, marine and power generation, plus CAT diesel engines, generators and more than 25,000 genuine parts."
+    - q: "Does Metro CAT provide service and repair?"
+      a: "Yes. With 920+ trained personnel, Metro CAT offers machine rebuild, engine reconditioning, transmission and hydraulic repair, preventive maintenance and parts support to minimize downtime."
+    - q: "How many branches does Metro CAT have?"
+      a: "Metro CAT operates more than 35 branches across Thailand, with subsidiary operations in Cambodia, Laos and China."
+    - q: "How can I contact Metro CAT?"
+      a: "Call +66 (0)2-742-9000 or visit our headquarters at 1760 Sukhumvit Road, Phra Khanong, Bangkok, Thailand."
+
+contact:
+  title: "Let's Build Something Powerful"
+  intro: "Ready to buy, rent or service Caterpillar equipment? Our team is ready to help you find the right solution."
+  call_label: "Call Us"
+  phone: "+66 (0)2-742-9000"
+  visit_label: "Visit Us"
+  address: "1760 Sukhumvit Road, Phra Khanong, Bangkok, Thailand"
+  follow_label: "Follow Us"
+  facebook_text: "Facebook: Metro CAT"
+  facebook_url: "https://www.facebook.com/metrocat.th/"
+  cta: "Request a Quote"
+
+footer:
+  tagline: "Metro Machinery Co., Ltd. — Sole authorized Caterpillar® dealer in Thailand since 1977."
+  legal: "© 2026 Metro Machinery Co., Ltd. All rights reserved. Caterpillar, CAT and their respective logos are trademarks of Caterpillar Inc."
