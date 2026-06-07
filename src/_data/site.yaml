@@ -1,10 +1,6 @@
-# ========================================================
-#  ค่ากลางของเว็บ (ใช้ร่วมทุกหน้า ไม่ขึ้นกับภาษา)
-# ========================================================
-brand: "Metro CAT"
-phone: "+66 (0)2-742-9000"
+brand: Metro CAT
+phone: +66 (0)2-742-9000
 phone_link: "+6627429000"
-facebook: "https://www.facebook.com/metrocat.th/"
-url: "https://www.metrocat.com"
-# โลโก้ (อัปโหลดผ่าน CMS ได้ — เว้นว่างจะใช้โลโก้ตัวอักษร)
-logo: ""
+facebook: https://www.facebook.com/metrocat.th/
+url: https://www.metrocat.com
+logo: /images/metrocat---Logo.jpg
