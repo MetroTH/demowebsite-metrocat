@@ -66,7 +66,7 @@ layout: base.njk
     <p class="eyebrow" data-th="{{ th.promo_banner.eyebrow }}" data-en="{{ en.promo_banner.eyebrow }}">{{ th.promo_banner.eyebrow }}</p>
     <h2 data-th="{{ th.promo_banner.title }}" data-en="{{ en.promo_banner.title }}">{{ th.promo_banner.title }}</h2>
     <p class="promo-banner-text" data-th="{{ th.promo_banner.text }}" data-en="{{ en.promo_banner.text }}">{{ th.promo_banner.text }}</p>
-    <a href="{{ th.promo_banner.url }}" class="btn btn-primary btn-lg" data-th="{{ th.promo_banner.cta }}" data-en="{{ en.promo_banner.cta }}">{{ th.promo_banner.cta }}</a>
+    <a href="{{ th.promo_banner.url | url }}" class="btn btn-primary btn-lg" data-th="{{ th.promo_banner.cta }}" data-en="{{ en.promo_banner.cta }}">{{ th.promo_banner.cta }}</a>
   </div>
 </section>
 
@@ -134,7 +134,7 @@ layout: base.njk
         <h2 class="section-title" data-th="{{ th.blog_section.title }}" data-en="{{ en.blog_section.title }}">{{ th.blog_section.title }}</h2>
         <p class="section-intro" data-th="{{ th.blog_section.intro }}" data-en="{{ en.blog_section.intro }}">{{ th.blog_section.intro }}</p>
       </div>
-      <a href="/blog/" class="btn btn-outline-dark" data-th="{{ th.blog_section.view_all }}" data-en="{{ en.blog_section.view_all }}">{{ th.blog_section.view_all }}</a>
+      <a href="{{ '/blog/' | url }}" class="btn btn-outline-dark" data-th="{{ th.blog_section.view_all }}" data-en="{{ en.blog_section.view_all }}">{{ th.blog_section.view_all }}</a>
     </div>
     <div class="card-grid" data-lang-list>
       {%- for p in thPosts %}{{ postCard(p, th.ui) }}{%- endfor %}
@@ -155,7 +155,7 @@ layout: base.njk
         <h2 class="section-title" data-th="{{ th.promo_section.title }}" data-en="{{ en.promo_section.title }}">{{ th.promo_section.title }}</h2>
         <p class="section-intro" data-th="{{ th.promo_section.intro }}" data-en="{{ en.promo_section.intro }}">{{ th.promo_section.intro }}</p>
       </div>
-      <a href="/promotions/" class="btn btn-outline-dark" data-th="{{ th.promo_section.view_all }}" data-en="{{ en.promo_section.view_all }}">{{ th.promo_section.view_all }}</a>
+      <a href="{{ '/promotions/' | url }}" class="btn btn-outline-dark" data-th="{{ th.promo_section.view_all }}" data-en="{{ en.promo_section.view_all }}">{{ th.promo_section.view_all }}</a>
     </div>
     <div class="card-grid" data-lang-list>
       {%- for p in thPromos %}{{ promoCard(p, th.ui) }}{%- endfor %}

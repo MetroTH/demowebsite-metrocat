@@ -3,29 +3,29 @@
 
 {% macro postCard(post, ui) %}
 <article class="content-card lang-item" data-lang="{{ post.data.lang }}">
-  <a href="{{ post.url }}" class="content-card-media"{% if post.data.image %} style="background-image:url('{{ post.data.image }}')"{% endif %}>
+  <a href="{{ post.url | url }}" class="content-card-media"{% if post.data.image %} style="background-image:url('{{ post.data.image }}')"{% endif %}>
     {% if not post.data.image %}<span class="media-fallback">📰</span>{% endif %}
     {% if post.data.category %}<span class="content-card-tag">{{ post.data.category }}</span>{% endif %}
   </a>
   <div class="content-card-body">
     <time class="content-card-date">{{ post.date | formatDate(post.data.lang) }}</time>
-    <h3 class="content-card-title"><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+    <h3 class="content-card-title"><a href="{{ post.url | url }}">{{ post.data.title }}</a></h3>
     <p class="content-card-excerpt">{{ post.data.excerpt }}</p>
-    <a href="{{ post.url }}" class="content-card-more">{{ ui.read_more }} →</a>
+    <a href="{{ post.url | url }}" class="content-card-more">{{ ui.read_more }} →</a>
   </div>
 </article>
 {% endmacro %}
 
 {% macro promoCard(promo, ui) %}
 <article class="content-card lang-item" data-lang="{{ promo.data.lang }}">
-  <a href="{{ promo.url }}" class="content-card-media promo-media"{% if promo.data.image %} style="background-image:url('{{ promo.data.image }}')"{% endif %}>
+  <a href="{{ promo.url | url }}" class="content-card-media promo-media"{% if promo.data.image %} style="background-image:url('{{ promo.data.image }}')"{% endif %}>
     {% if not promo.data.image %}<span class="media-fallback">🏷️</span>{% endif %}
     {% if promo.data.end_date %}<span class="content-card-tag promo-tag">{{ ui.valid_until }} {{ promo.data.end_date | formatDate(promo.data.lang) }}</span>{% endif %}
   </a>
   <div class="content-card-body">
-    <h3 class="content-card-title"><a href="{{ promo.url }}">{{ promo.data.title }}</a></h3>
+    <h3 class="content-card-title"><a href="{{ promo.url | url }}">{{ promo.data.title }}</a></h3>
     <p class="content-card-excerpt">{{ promo.data.excerpt }}</p>
-    <a href="{{ promo.url }}" class="content-card-more">{{ ui.read_more }} →</a>
+    <a href="{{ promo.url | url }}" class="content-card-more">{{ ui.read_more }} →</a>
   </div>
 </article>
 {% endmacro %}

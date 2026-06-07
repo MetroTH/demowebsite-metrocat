@@ -48,6 +48,7 @@ module.exports = function (eleventyConfig) {
   );
 
   return {
+    pathPrefix: "/demowebsite-metrocat/",
     dir: {
       input: "src",
       output: "_site",
