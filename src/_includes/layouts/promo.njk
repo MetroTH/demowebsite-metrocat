@@ -4,7 +4,7 @@ layout: base.njk
 <article class="post promo-page">
   <div class="post-hero{% if not image %} no-image{% endif %}"{% if image %} style="background-image:url('{{ image }}')"{% endif %}>
     <div class="container">
-      <a href="/promotions/" class="post-back" data-th="{{ th.ui.back_to_promos }}" data-en="{{ en.ui.back_to_promos }}">{% if lang == 'en' %}{{ en.ui.back_to_promos }}{% else %}{{ th.ui.back_to_promos }}{% endif %}</a>
+      <a href="{{ '/promotions/' | url }}" class="post-back" data-th="{{ th.ui.back_to_promos }}" data-en="{{ en.ui.back_to_promos }}">{% if lang == 'en' %}{{ en.ui.back_to_promos }}{% else %}{{ th.ui.back_to_promos }}{% endif %}</a>
       <span class="post-cat promo-cat">{% if lang == 'en' %}{{ en.promo_banner.eyebrow }}{% else %}{{ th.promo_banner.eyebrow }}{% endif %}</span>
       <h1>{{ title }}</h1>
       <div class="post-meta">
@@ -18,7 +18,7 @@ layout: base.njk
     {{ content | safe }}
 
     <p class="post-cta-row">
-      <a href="/#contact" class="btn btn-primary btn-lg">{% if lang == 'en' %}{{ en.contact.cta }}{% else %}{{ th.contact.cta }}{% endif %}</a>
+      <a href="{{ '/' | url }}#contact" class="btn btn-primary btn-lg">{% if lang == 'en' %}{{ en.contact.cta }}{% else %}{{ th.contact.cta }}{% endif %}</a>
     </p>
   </div>
 </article>

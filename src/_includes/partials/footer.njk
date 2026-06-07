@@ -9,11 +9,11 @@
     <div class="footer-col">
       <h4 data-th="{{ th.footer.links_title }}" data-en="{{ en.footer.links_title }}">{{ th.footer.links_title }}</h4>
       <ul>
-        <li><a href="/#products" data-th="{{ th.nav.products }}" data-en="{{ en.nav.products }}">{{ th.nav.products }}</a></li>
-        <li><a href="/#services" data-th="{{ th.nav.services }}" data-en="{{ en.nav.services }}">{{ th.nav.services }}</a></li>
-        <li><a href="/blog/" data-th="{{ th.nav.blog }}" data-en="{{ en.nav.blog }}">{{ th.nav.blog }}</a></li>
-        <li><a href="/promotions/" data-th="{{ th.nav.promotions }}" data-en="{{ en.nav.promotions }}">{{ th.nav.promotions }}</a></li>
-        <li><a href="/#faq" data-th="{{ th.nav.faq }}" data-en="{{ en.nav.faq }}">{{ th.nav.faq }}</a></li>
+        <li><a href="{{ '/' | url }}#products" data-th="{{ th.nav.products }}" data-en="{{ en.nav.products }}">{{ th.nav.products }}</a></li>
+        <li><a href="{{ '/' | url }}#services" data-th="{{ th.nav.services }}" data-en="{{ en.nav.services }}">{{ th.nav.services }}</a></li>
+        <li><a href="{{ '/blog/' | url }}" data-th="{{ th.nav.blog }}" data-en="{{ en.nav.blog }}">{{ th.nav.blog }}</a></li>
+        <li><a href="{{ '/promotions/' | url }}" data-th="{{ th.nav.promotions }}" data-en="{{ en.nav.promotions }}">{{ th.nav.promotions }}</a></li>
+        <li><a href="{{ '/' | url }}#faq" data-th="{{ th.nav.faq }}" data-en="{{ en.nav.faq }}">{{ th.nav.faq }}</a></li>
       </ul>
     </div>
 
