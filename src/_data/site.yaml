@@ -3,3 +3,12 @@ phone: +66 (0)2-742-9000
 phone_link: "+6627429000"
 facebook: https://www.facebook.com/metrocat.th/
 url: https://www.metrocat.com
+logo: ""
+
+# ========================================================
+#  Code Injection — ใส่โค้ดได้ผ่าน Pages CMS > ตั้งค่าเว็บ
+# ========================================================
+# head_code: โค้ดที่ต้องการใส่ใน <head> เช่น Google Search Console, GTM <script>
+head_code: ""
+# body_start_code: โค้ดที่ต้องการใส่ต้น <body> เช่น GTM <noscript>
+body_start_code: ""

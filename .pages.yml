@@ -377,3 +377,67 @@ content:
       - { name: facebook, label: "ลิงก์ Facebook", type: string }
       - { name: url, label: "URL เว็บไซต์", type: string }
       - { name: logo, label: "โลโก้", type: image }
+
+  # ===================== ตั้งค่า Code Injection =====================
+  - name: settings
+    label: "⚙️ ตั้งค่า / Code Injection"
+    type: file
+    path: src/_data/site.yaml
+    fields:
+      - name: head_code
+        label: "Code ใน <head> (Google Search Console / GTM Script)"
+        type: text
+        description: "ใส่ HTML code ที่ต้องการใส่ใน <head> เช่น GTM script tag หรือ GSC meta tag"
+      - name: body_start_code
+        label: "Code ต้น <body> (GTM noscript)"
+        type: text
+        description: "ใส่ HTML code ที่ต้องการใส่หลัง <body> เช่น GTM noscript iframe"
+
+  # ===================== หมวดหมู่สินค้า =====================
+  - name: product_catalog
+    label: "🏗️ หมวดหมู่สินค้า (Product Catalog)"
+    type: collection
+    path: src/_data
+    filename: "productCatalog.yaml"
+    view:
+      fields: [slug]
+    fields:
+      - { name: slug, label: "Slug (URL)", type: string }
+      - name: th
+        label: "ภาษาไทย"
+        type: object
+        fields:
+          - { name: title, label: "ชื่อหมวดหมู่", type: string }
+          - { name: icon, label: "ไอคอน (อีโมจิ)", type: string }
+          - { name: desc, label: "คำอธิบาย", type: text }
+          - { name: image, label: "รูปหน้าปก", type: image }
+      - name: en
+        label: "English"
+        type: object
+        fields:
+          - { name: title, label: "Category Name", type: string }
+          - { name: icon, label: "Icon (emoji)", type: string }
+          - { name: desc, label: "Description", type: text }
+          - { name: image, label: "Cover Image", type: image }
+      - name: subcategories
+        label: "หมวดย่อย"
+        type: object
+        list: true
+        fields:
+          - { name: slug, label: "Slug", type: string }
+          - name: th
+            label: "ภาษาไทย"
+            type: object
+            fields:
+              - { name: title, label: "ชื่อ", type: string }
+              - { name: desc, label: "คำอธิบาย", type: text }
+              - { name: models, label: "รุ่นสินค้า", type: string, list: true }
+              - { name: image, label: "รูป", type: image }
+          - name: en
+            label: "English"
+            type: object
+            fields:
+              - { name: title, label: "Title", type: string }
+              - { name: desc, label: "Description", type: text }
+              - { name: models, label: "Model numbers", type: string, list: true }
+              - { name: image, label: "Image", type: image }
