@@ -1,0 +1,45 @@
+<!-- Top bar -->
+<div class="topbar">
+  <div class="container topbar-inner">
+    <div class="topbar-left">
+      <a href="tel:{{ site.phone_link }}" class="topbar-phone">☎ {{ site.phone }}</a>
+      <span class="topbar-hours" data-th="{{ th.topbar.hours }}" data-en="{{ en.topbar.hours }}">{{ th.topbar.hours }}</span>
+    </div>
+    <div class="topbar-right">
+      <a href="{{ site.facebook }}" rel="noopener" aria-label="Facebook">Facebook</a>
+    </div>
+  </div>
+</div>
+
+<!-- Header / Navigation -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="brand" aria-label="Metro CAT">
+      {% if site.logo %}<img src="{{ site.logo }}" alt="Metro CAT" class="brand-logo" />
+      {% else %}<span class="brand-mark">METRO</span><span class="brand-cat">CAT</span>{% endif %}
+    </a>
+
+    <button class="nav-toggle" aria-label="เปิด/ปิดเมนู" aria-expanded="false" aria-controls="primary-nav">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="main-nav" id="primary-nav" aria-label="เมนูหลัก">
+      <ul>
+        <li><a href="/" data-th="{{ th.nav.home }}" data-en="{{ en.nav.home }}">{{ th.nav.home }}</a></li>
+        <li><a href="/#products" data-th="{{ th.nav.products }}" data-en="{{ en.nav.products }}">{{ th.nav.products }}</a></li>
+        <li><a href="/#services" data-th="{{ th.nav.services }}" data-en="{{ en.nav.services }}">{{ th.nav.services }}</a></li>
+        <li><a href="/blog/" data-th="{{ th.nav.blog }}" data-en="{{ en.nav.blog }}">{{ th.nav.blog }}</a></li>
+        <li><a href="/promotions/" data-th="{{ th.nav.promotions }}" data-en="{{ en.nav.promotions }}">{{ th.nav.promotions }}</a></li>
+        <li><a href="/#about" data-th="{{ th.nav.about }}" data-en="{{ en.nav.about }}">{{ th.nav.about }}</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <div class="lang-switch" role="group" aria-label="เลือกภาษา / Select language">
+        <button type="button" class="lang-btn" data-lang="th">TH</button>
+        <button type="button" class="lang-btn" data-lang="en">EN</button>
+      </div>
+      <a href="/#contact" class="btn btn-primary nav-cta" data-th="{{ th.nav.contact }}" data-en="{{ en.nav.contact }}">{{ th.nav.contact }}</a>
+    </div>
+  </div>
+</header>

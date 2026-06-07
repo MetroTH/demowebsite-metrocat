@@ -1,0 +1,24 @@
+---
+layout: base.njk
+permalink: /blog/index.html
+pageTitle: "บทความและข่าวสาร | Metro CAT"
+pageDescription: "ความรู้ เคล็ดลับ และข่าวสารล่าสุดเกี่ยวกับเครื่องจักร Caterpillar จาก Metro CAT"
+---
+{% from "partials/cards.njk" import postCard %}
+
+<section class="page-hero">
+  <div class="container">
+    <h1 data-th="{{ th.ui.blog_title }}" data-en="{{ en.ui.blog_title }}">{{ th.ui.blog_title }}</h1>
+    <p data-th="{{ th.ui.blog_intro }}" data-en="{{ en.ui.blog_intro }}">{{ th.ui.blog_intro }}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="card-grid" data-lang-list>
+      {%- for p in collections.post | byLang("th") %}{{ postCard(p, th.ui) }}{%- endfor %}
+      {%- for p in collections.post | byLang("en") %}{{ postCard(p, en.ui) }}{%- endfor %}
+    </div>
+    <p class="lang-empty" data-th="{{ th.ui.no_posts }}" data-en="{{ en.ui.no_posts }}" style="display:none">{{ th.ui.no_posts }}</p>
+  </div>
+</section>

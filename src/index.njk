@@ -1,337 +1,221 @@
-<!DOCTYPE html>
-<html lang="th">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+---
+layout: base.njk
+---
+{% from "partials/cards.njk" import postCard, promoCard %}
 
-  <!-- Primary SEO Meta Tags (Thai primary) -->
-  <title>{{ th.meta.title }}</title>
-  <meta name="title" content="{{ th.meta.title }}" />
-  <meta name="description" content="{{ th.meta.description }}" />
-  <meta name="keywords" content="{{ th.meta.keywords }}" />
-  <meta name="author" content="Metro Machinery Co., Ltd." />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://www.metrocat.com/" />
+<!-- Hero -->
+<section id="home" class="hero{% if not th.hero.image %} no-image{% endif %}"{% if th.hero.image %} style="background-image:url('{{ th.hero.image }}')"{% endif %}>
+  <div class="container hero-inner">
+    <p class="eyebrow" data-th="{{ th.hero.eyebrow }}" data-en="{{ en.hero.eyebrow }}">{{ th.hero.eyebrow }}</p>
+    <h1 data-th="{{ th.hero.title }}" data-en="{{ en.hero.title }}">{{ th.hero.title }}</h1>
+    <p class="hero-lead" data-th="{{ th.hero.lead }}" data-en="{{ en.hero.lead }}">{{ th.hero.lead }}</p>
+    <div class="hero-actions">
+      <a href="#products" class="btn btn-primary" data-th="{{ th.hero.cta_primary }}" data-en="{{ en.hero.cta_primary }}">{{ th.hero.cta_primary }}</a>
+      <a href="#contact" class="btn btn-outline" data-th="{{ th.hero.cta_secondary }}" data-en="{{ en.hero.cta_secondary }}">{{ th.hero.cta_secondary }}</a>
+    </div>
+  </div>
+</section>
 
-  <!-- hreflang alternates -->
-  <link rel="alternate" hreflang="th" href="https://www.metrocat.com/?lang=th" />
-  <link rel="alternate" hreflang="en" href="https://www.metrocat.com/?lang=en" />
-  <link rel="alternate" hreflang="x-default" href="https://www.metrocat.com/" />
+<!-- Feature boxes -->
+<section class="features-band">
+  <div class="container feature-grid">
+    {%- for f in th.features %}
+    <div class="feature-box">
+      <span class="feature-icon">{{ f.icon }}</span>
+      <div>
+        <h3 data-th="{{ f.title }}" data-en="{{ en.features[loop.index0].title }}">{{ f.title }}</h3>
+        <p data-th="{{ f.desc }}" data-en="{{ en.features[loop.index0].desc }}">{{ f.desc }}</p>
+      </div>
+    </div>
+    {%- endfor %}
+  </div>
+</section>
 
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.metrocat.com/" />
-  <meta property="og:title" content="{{ th.meta.title }}" />
-  <meta property="og:description" content="{{ th.meta.description }}" />
-  <meta property="og:locale" content="th_TH" />
-  <meta property="og:locale:alternate" content="en_US" />
-  <meta property="og:site_name" content="Metro CAT" />
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="{{ th.meta.title }}" />
-  <meta name="twitter:description" content="{{ th.meta.description }}" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-
-  <!-- Structured Data: Organization (SEO + AEO) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "AutoDealer",
-    "name": "Metro Machinery Co., Ltd. (Metro CAT)",
-    "alternateName": ["Metro CAT", "เมโทร แมชีนเนอรี่", "เมโทรแคต"],
-    "url": "https://www.metrocat.com/",
-    "description": {{ th.meta.description | dump | safe }},
-    "foundingDate": "1977",
-    "slogan": "พลังแห่งความร่วมมือ สร้างมาเพื่อความทนทาน",
-    "brand": { "@type": "Brand", "name": "Caterpillar" },
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "1760 ถนนสุขุมวิท แขวงพระโขนง",
-      "addressLocality": "กรุงเทพมหานคร",
-      "addressCountry": "TH"
-    },
-    "telephone": "+66-2-742-9000",
-    "areaServed": ["Thailand", "Cambodia", "Laos", "China"],
-    "numberOfEmployees": "920+",
-    "sameAs": [
-      "https://www.facebook.com/metrocat.th/",
-      "https://www.linkedin.com/company/metro-machinery-group"
-    ]
-  }
-  </script>
-
-  <!-- Structured Data: FAQ in Thai (AEO / answer engines) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {%- for item in th.faq.items %}
-      {
-        "@type": "Question",
-        "name": {{ item.q | dump | safe }},
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": {{ item.a | dump | safe }}
-        }
-      }{{ "," if not loop.last }}
+<!-- Stats band -->
+<section class="stats-band">
+  <div class="container">
+    <ul class="hero-stats" aria-label="ข้อมูลสำคัญของบริษัท">
+      {%- for stat in th.hero.stats %}
+      <li><strong>{{ stat.value }}</strong><span data-th="{{ stat.label }}" data-en="{{ en.hero.stats[loop.index0].label }}">{{ stat.label }}</span></li>
       {%- endfor %}
-    ]
-  }
-  </script>
-</head>
+    </ul>
+  </div>
+</section>
 
-<body>
-  <a class="skip-link" href="#main" data-th="ข้ามไปยังเนื้อหาหลัก" data-en="Skip to main content">ข้ามไปยังเนื้อหาหลัก</a>
-
-  <!-- Header / Navigation -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="#home" class="brand" aria-label="Metro CAT">
-        <span class="brand-mark">METRO</span><span class="brand-cat">CAT</span>
-      </a>
-
-      <button class="nav-toggle" aria-label="เปิด/ปิดเมนู" aria-expanded="false" aria-controls="primary-nav">
-        <span></span><span></span><span></span>
-      </button>
-
-      <nav class="main-nav" id="primary-nav" aria-label="เมนูหลัก">
-        <ul>
-          <li><a href="#home" data-th="{{ th.nav.home }}" data-en="{{ en.nav.home }}">{{ th.nav.home }}</a></li>
-          <li><a href="#about" data-th="{{ th.nav.about }}" data-en="{{ en.nav.about }}">{{ th.nav.about }}</a></li>
-          <li><a href="#products" data-th="{{ th.nav.products }}" data-en="{{ en.nav.products }}">{{ th.nav.products }}</a></li>
-          <li><a href="#services" data-th="{{ th.nav.services }}" data-en="{{ en.nav.services }}">{{ th.nav.services }}</a></li>
-          <li><a href="#why" data-th="{{ th.nav.why }}" data-en="{{ en.nav.why }}">{{ th.nav.why }}</a></li>
-          <li><a href="#faq" data-th="{{ th.nav.faq }}" data-en="{{ en.nav.faq }}">{{ th.nav.faq }}</a></li>
-        </ul>
-      </nav>
-
-      <div class="header-actions">
-        <div class="lang-switch" role="group" aria-label="เลือกภาษา / Select language">
-          <button type="button" class="lang-btn" data-lang="th">TH</button>
-          <button type="button" class="lang-btn" data-lang="en">EN</button>
+<!-- Product categories -->
+<section id="products" class="section section-alt">
+  <div class="container">
+    <h2 class="section-title" data-th="{{ th.products.title }}" data-en="{{ en.products.title }}">{{ th.products.title }}</h2>
+    <p class="section-intro" data-th="{{ th.products.intro }}" data-en="{{ en.products.intro }}">{{ th.products.intro }}</p>
+    <div class="cat-grid">
+      {%- for item in th.products.items %}
+      <article class="cat-card{% if not item.image %} no-image{% endif %}"{% if item.image %} style="background-image:url('{{ item.image }}')"{% endif %}>
+        <div class="cat-card-overlay">
+          <h3 data-th="{{ item.title }}" data-en="{{ en.products.items[loop.index0].title }}">{{ item.title }}</h3>
+          <p data-th="{{ item.desc }}" data-en="{{ en.products.items[loop.index0].desc }}">{{ item.desc }}</p>
         </div>
-        <a href="#contact" class="btn btn-primary nav-cta" data-th="{{ th.nav.contact }}" data-en="{{ en.nav.contact }}">{{ th.nav.contact }}</a>
-      </div>
+      </article>
+      {%- endfor %}
     </div>
-  </header>
+  </div>
+</section>
 
-  <main id="main">
-    <!-- Hero -->
-    <section id="home" class="hero">
-      <div class="container hero-inner">
-        <p class="eyebrow" data-th="{{ th.hero.eyebrow }}" data-en="{{ en.hero.eyebrow }}">{{ th.hero.eyebrow }}</p>
-        <h1 data-th="{{ th.hero.title }}" data-en="{{ en.hero.title }}">{{ th.hero.title }}</h1>
-        <p class="hero-lead" data-th="{{ th.hero.lead }}" data-en="{{ en.hero.lead }}">{{ th.hero.lead }}</p>
-        <div class="hero-actions">
-          <a href="#products" class="btn btn-primary" data-th="{{ th.hero.cta_primary }}" data-en="{{ en.hero.cta_primary }}">{{ th.hero.cta_primary }}</a>
-          <a href="#contact" class="btn btn-outline" data-th="{{ th.hero.cta_secondary }}" data-en="{{ en.hero.cta_secondary }}">{{ th.hero.cta_secondary }}</a>
-        </div>
-        <ul class="hero-stats" aria-label="ข้อมูลสำคัญของบริษัท">
-          {%- for stat in th.hero.stats %}
-          <li><strong>{{ stat.value }}</strong><span data-th="{{ stat.label }}" data-en="{{ en.hero.stats[loop.index0].label }}">{{ stat.label }}</span></li>
+<!-- Promo banner -->
+<section class="promo-banner{% if not th.promo_banner.image %} no-image{% endif %}"{% if th.promo_banner.image %} style="background-image:url('{{ th.promo_banner.image }}')"{% endif %}>
+  <div class="container promo-banner-inner">
+    <p class="eyebrow" data-th="{{ th.promo_banner.eyebrow }}" data-en="{{ en.promo_banner.eyebrow }}">{{ th.promo_banner.eyebrow }}</p>
+    <h2 data-th="{{ th.promo_banner.title }}" data-en="{{ en.promo_banner.title }}">{{ th.promo_banner.title }}</h2>
+    <p class="promo-banner-text" data-th="{{ th.promo_banner.text }}" data-en="{{ en.promo_banner.text }}">{{ th.promo_banner.text }}</p>
+    <a href="{{ th.promo_banner.url }}" class="btn btn-primary btn-lg" data-th="{{ th.promo_banner.cta }}" data-en="{{ en.promo_banner.cta }}">{{ th.promo_banner.cta }}</a>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about" class="section">
+  <div class="container">
+    <h2 class="section-title" data-th="{{ th.about.title }}" data-en="{{ en.about.title }}">{{ th.about.title }}</h2>
+    <div class="about-grid">
+      <div>
+        <p data-th="{{ th.about.p1 }}" data-en="{{ en.about.p1 }}">{{ th.about.p1 }}</p>
+        <p data-th="{{ th.about.p2 }}" data-en="{{ en.about.p2 }}">{{ th.about.p2 }}</p>
+      </div>
+      <div class="about-card">
+        <h3 data-th="{{ th.about.promise_title }}" data-en="{{ en.about.promise_title }}">{{ th.about.promise_title }}</h3>
+        <ul class="check-list">
+          {%- for line in th.about.promise %}
+          <li data-th="{{ line }}" data-en="{{ en.about.promise[loop.index0] }}">{{ line }}</li>
           {%- endfor %}
         </ul>
       </div>
-    </section>
-
-    <!-- About -->
-    <section id="about" class="section">
-      <div class="container">
-        <h2 class="section-title" data-th="{{ th.about.title }}" data-en="{{ en.about.title }}">{{ th.about.title }}</h2>
-        <div class="about-grid">
-          <div>
-            <p data-th="{{ th.about.p1 }}" data-en="{{ en.about.p1 }}">{{ th.about.p1 }}</p>
-            <p data-th="{{ th.about.p2 }}" data-en="{{ en.about.p2 }}">{{ th.about.p2 }}</p>
-          </div>
-          <div class="about-card">
-            <h3 data-th="{{ th.about.promise_title }}" data-en="{{ en.about.promise_title }}">{{ th.about.promise_title }}</h3>
-            <ul class="check-list">
-              {%- for line in th.about.promise %}
-              <li data-th="{{ line }}" data-en="{{ en.about.promise[loop.index0] }}">{{ line }}</li>
-              {%- endfor %}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Products -->
-    <section id="products" class="section section-alt">
-      <div class="container">
-        <h2 class="section-title" data-th="{{ th.products.title }}" data-en="{{ en.products.title }}">{{ th.products.title }}</h2>
-        <p class="section-intro" data-th="{{ th.products.intro }}" data-en="{{ en.products.intro }}">{{ th.products.intro }}</p>
-        <div class="card-grid">
-          {%- for item in th.products.items %}
-          <article class="card">
-            <h3 data-th="{{ item.title }}" data-en="{{ en.products.items[loop.index0].title }}">{{ item.title }}</h3>
-            <p data-th="{{ item.desc }}" data-en="{{ en.products.items[loop.index0].desc }}">{{ item.desc }}</p>
-          </article>
-          {%- endfor %}
-        </div>
-      </div>
-    </section>
-
-    <!-- Services -->
-    <section id="services" class="section">
-      <div class="container">
-        <h2 class="section-title" data-th="{{ th.services.title }}" data-en="{{ en.services.title }}">{{ th.services.title }}</h2>
-        <p class="section-intro" data-th="{{ th.services.intro }}" data-en="{{ en.services.intro }}">{{ th.services.intro }}</p>
-        <div class="card-grid">
-          {%- for item in th.services.items %}
-          <article class="card card-accent">
-            <h3 data-th="{{ item.title }}" data-en="{{ en.services.items[loop.index0].title }}">{{ item.title }}</h3>
-            <p data-th="{{ item.desc }}" data-en="{{ en.services.items[loop.index0].desc }}">{{ item.desc }}</p>
-          </article>
-          {%- endfor %}
-        </div>
-      </div>
-    </section>
-
-    <!-- Why Us -->
-    <section id="why" class="section section-dark">
-      <div class="container">
-        <h2 class="section-title" data-th="{{ th.why.title }}" data-en="{{ en.why.title }}">{{ th.why.title }}</h2>
-        <div class="why-grid">
-          {%- for item in th.why.items %}
-          <div class="why-item">
-            <span class="why-num">{{ item.num }}</span>
-            <h3 data-th="{{ item.title }}" data-en="{{ en.why.items[loop.index0].title }}">{{ item.title }}</h3>
-            <p data-th="{{ item.desc }}" data-en="{{ en.why.items[loop.index0].desc }}">{{ item.desc }}</p>
-          </div>
-          {%- endfor %}
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ (AEO) -->
-    <section id="faq" class="section">
-      <div class="container narrow">
-        <h2 class="section-title" data-th="{{ th.faq.title }}" data-en="{{ en.faq.title }}">{{ th.faq.title }}</h2>
-        <div class="faq-list">
-          {%- for item in th.faq.items %}
-          <details class="faq-item"{{ " open" if loop.first }}>
-            <summary data-th="{{ item.q }}" data-en="{{ en.faq.items[loop.index0].q }}">{{ item.q }}</summary>
-            <p data-th="{{ item.a }}" data-en="{{ en.faq.items[loop.index0].a }}">{{ item.a }}</p>
-          </details>
-          {%- endfor %}
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact / CTA -->
-    <section id="contact" class="section section-cta">
-      <div class="container narrow">
-        <h2 class="section-title" data-th="{{ th.contact.title }}" data-en="{{ en.contact.title }}">{{ th.contact.title }}</h2>
-        <p class="section-intro" data-th="{{ th.contact.intro }}" data-en="{{ en.contact.intro }}">{{ th.contact.intro }}</p>
-        <div class="contact-grid">
-          <div class="contact-card">
-            <h3 data-th="{{ th.contact.call_label }}" data-en="{{ en.contact.call_label }}">{{ th.contact.call_label }}</h3>
-            <p><a href="tel:+6627429000">{{ th.contact.phone }}</a></p>
-          </div>
-          <div class="contact-card">
-            <h3 data-th="{{ th.contact.visit_label }}" data-en="{{ en.contact.visit_label }}">{{ th.contact.visit_label }}</h3>
-            <p data-th="{{ th.contact.address }}" data-en="{{ en.contact.address }}">{{ th.contact.address }}</p>
-          </div>
-          <div class="contact-card">
-            <h3 data-th="{{ th.contact.follow_label }}" data-en="{{ en.contact.follow_label }}">{{ th.contact.follow_label }}</h3>
-            <p><a href="{{ th.contact.facebook_url }}" rel="noopener">{{ th.contact.facebook_text }}</a></p>
-          </div>
-        </div>
-        <a href="tel:+6627429000" class="btn btn-primary btn-lg" data-th="{{ th.contact.cta }}" data-en="{{ en.contact.cta }}">{{ th.contact.cta }}</a>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div class="footer-brand">
-        <span class="brand-mark">METRO</span><span class="brand-cat">CAT</span>
-        <p data-th="{{ th.footer.tagline }}" data-en="{{ en.footer.tagline }}">{{ th.footer.tagline }}</p>
-      </div>
-      <nav aria-label="เมนูส่วนท้าย">
-        <ul>
-          <li><a href="#about" data-th="{{ th.nav.about }}" data-en="{{ en.nav.about }}">{{ th.nav.about }}</a></li>
-          <li><a href="#products" data-th="{{ th.nav.products }}" data-en="{{ en.nav.products }}">{{ th.nav.products }}</a></li>
-          <li><a href="#services" data-th="{{ th.nav.services }}" data-en="{{ en.nav.services }}">{{ th.nav.services }}</a></li>
-          <li><a href="#faq" data-th="{{ th.nav.faq }}" data-en="{{ en.nav.faq }}">{{ th.nav.faq }}</a></li>
-          <li><a href="#contact" data-th="{{ th.nav.contact }}" data-en="{{ en.nav.contact }}">{{ th.nav.contact }}</a></li>
-        </ul>
-      </nav>
     </div>
-    <div class="container footer-legal">
-      <p data-th="{{ th.footer.legal }}" data-en="{{ en.footer.legal }}">{{ th.footer.legal }}</p>
+  </div>
+</section>
+
+<!-- Services -->
+<section id="services" class="section section-alt">
+  <div class="container">
+    <h2 class="section-title" data-th="{{ th.services.title }}" data-en="{{ en.services.title }}">{{ th.services.title }}</h2>
+    <p class="section-intro" data-th="{{ th.services.intro }}" data-en="{{ en.services.intro }}">{{ th.services.intro }}</p>
+    <div class="card-grid">
+      {%- for item in th.services.items %}
+      <article class="card card-accent">
+        <h3 data-th="{{ item.title }}" data-en="{{ en.services.items[loop.index0].title }}">{{ item.title }}</h3>
+        <p data-th="{{ item.desc }}" data-en="{{ en.services.items[loop.index0].desc }}">{{ item.desc }}</p>
+      </article>
+      {%- endfor %}
     </div>
-  </footer>
+  </div>
+</section>
 
-  <script>
-    (function () {
-      var STORAGE_KEY = "metrocat-lang";
-      var SUPPORTED = ["th", "en"];
+<!-- Why Us -->
+<section id="why" class="section section-dark">
+  <div class="container">
+    <h2 class="section-title" data-th="{{ th.why.title }}" data-en="{{ en.why.title }}">{{ th.why.title }}</h2>
+    <div class="why-grid">
+      {%- for item in th.why.items %}
+      <div class="why-item">
+        <span class="why-num">{{ item.num }}</span>
+        <h3 data-th="{{ item.title }}" data-en="{{ en.why.items[loop.index0].title }}">{{ item.title }}</h3>
+        <p data-th="{{ item.desc }}" data-en="{{ en.why.items[loop.index0].desc }}">{{ item.desc }}</p>
+      </div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
 
-      function resolveInitialLang() {
-        var params = new URLSearchParams(window.location.search);
-        var fromUrl = params.get("lang");
-        if (SUPPORTED.indexOf(fromUrl) !== -1) return fromUrl;
-        var stored = localStorage.getItem(STORAGE_KEY);
-        if (SUPPORTED.indexOf(stored) !== -1) return stored;
-        return "th"; // default Thai
-      }
+<!-- Latest blog posts -->
+{% set thPosts = collections.post | byLang("th") | limit(3) %}
+{% set enPosts = collections.post | byLang("en") | limit(3) %}
+{% if thPosts.length or enPosts.length %}
+<section class="section">
+  <div class="container">
+    <div class="section-head-row">
+      <div>
+        <h2 class="section-title" data-th="{{ th.blog_section.title }}" data-en="{{ en.blog_section.title }}">{{ th.blog_section.title }}</h2>
+        <p class="section-intro" data-th="{{ th.blog_section.intro }}" data-en="{{ en.blog_section.intro }}">{{ th.blog_section.intro }}</p>
+      </div>
+      <a href="/blog/" class="btn btn-outline-dark" data-th="{{ th.blog_section.view_all }}" data-en="{{ en.blog_section.view_all }}">{{ th.blog_section.view_all }}</a>
+    </div>
+    <div class="card-grid" data-lang-list>
+      {%- for p in thPosts %}{{ postCard(p, th.ui) }}{%- endfor %}
+      {%- for p in enPosts %}{{ postCard(p, en.ui) }}{%- endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
 
-      function setLanguage(lang) {
-        if (SUPPORTED.indexOf(lang) === -1) lang = "th";
-        document.documentElement.setAttribute("lang", lang);
+<!-- Latest promotions -->
+{% set thPromos = collections.promo | byLang("th") | limit(3) %}
+{% set enPromos = collections.promo | byLang("en") | limit(3) %}
+{% if thPromos.length or enPromos.length %}
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head-row">
+      <div>
+        <h2 class="section-title" data-th="{{ th.promo_section.title }}" data-en="{{ en.promo_section.title }}">{{ th.promo_section.title }}</h2>
+        <p class="section-intro" data-th="{{ th.promo_section.intro }}" data-en="{{ en.promo_section.intro }}">{{ th.promo_section.intro }}</p>
+      </div>
+      <a href="/promotions/" class="btn btn-outline-dark" data-th="{{ th.promo_section.view_all }}" data-en="{{ en.promo_section.view_all }}">{{ th.promo_section.view_all }}</a>
+    </div>
+    <div class="card-grid" data-lang-list>
+      {%- for p in thPromos %}{{ promoCard(p, th.ui) }}{%- endfor %}
+      {%- for p in enPromos %}{{ promoCard(p, en.ui) }}{%- endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
 
-        var nodes = document.querySelectorAll("[data-" + lang + "]");
-        nodes.forEach(function (el) {
-          var value = el.getAttribute("data-" + lang);
-          if (value === null) return;
-          if (value.indexOf("<") !== -1) {
-            el.innerHTML = value;
-          } else {
-            el.textContent = value;
-          }
-        });
+<!-- FAQ -->
+<section id="faq" class="section">
+  <div class="container narrow">
+    <h2 class="section-title" data-th="{{ th.faq.title }}" data-en="{{ en.faq.title }}">{{ th.faq.title }}</h2>
+    <div class="faq-list">
+      {%- for item in th.faq.items %}
+      <details class="faq-item"{{ " open" if loop.first }}>
+        <summary data-th="{{ item.q }}" data-en="{{ en.faq.items[loop.index0].q }}">{{ item.q }}</summary>
+        <p data-th="{{ item.a }}" data-en="{{ en.faq.items[loop.index0].a }}">{{ item.a }}</p>
+      </details>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
 
-        document.querySelectorAll(".lang-btn").forEach(function (btn) {
-          var active = btn.getAttribute("data-lang") === lang;
-          btn.classList.toggle("is-active", active);
-          btn.setAttribute("aria-pressed", active ? "true" : "false");
-        });
+<!-- Contact / CTA -->
+<section id="contact" class="section section-cta">
+  <div class="container narrow">
+    <h2 class="section-title" data-th="{{ th.contact.title }}" data-en="{{ en.contact.title }}">{{ th.contact.title }}</h2>
+    <p class="section-intro" data-th="{{ th.contact.intro }}" data-en="{{ en.contact.intro }}">{{ th.contact.intro }}</p>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h3 data-th="{{ th.contact.call_label }}" data-en="{{ en.contact.call_label }}">{{ th.contact.call_label }}</h3>
+        <p><a href="tel:{{ site.phone_link }}">{{ th.contact.phone }}</a></p>
+      </div>
+      <div class="contact-card">
+        <h3 data-th="{{ th.contact.visit_label }}" data-en="{{ en.contact.visit_label }}">{{ th.contact.visit_label }}</h3>
+        <p data-th="{{ th.contact.address }}" data-en="{{ en.contact.address }}">{{ th.contact.address }}</p>
+      </div>
+      <div class="contact-card">
+        <h3 data-th="{{ th.contact.follow_label }}" data-en="{{ en.contact.follow_label }}">{{ th.contact.follow_label }}</h3>
+        <p><a href="{{ th.contact.facebook_url }}" rel="noopener">{{ th.contact.facebook_text }}</a></p>
+      </div>
+    </div>
+    <a href="tel:{{ site.phone_link }}" class="btn btn-primary btn-lg" data-th="{{ th.contact.cta }}" data-en="{{ en.contact.cta }}">{{ th.contact.cta }}</a>
+  </div>
+</section>
 
-        try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
-      }
-
-      document.addEventListener("DOMContentLoaded", function () {
-        setLanguage(resolveInitialLang());
-
-        document.querySelectorAll(".lang-btn").forEach(function (btn) {
-          btn.addEventListener("click", function () {
-            setLanguage(btn.getAttribute("data-lang"));
-          });
-        });
-
-        var navToggle = document.querySelector(".nav-toggle");
-        var nav = document.getElementById("primary-nav");
-        if (navToggle && nav) {
-          navToggle.addEventListener("click", function () {
-            var open = nav.classList.toggle("is-open");
-            navToggle.setAttribute("aria-expanded", open ? "true" : "false");
-          });
-          nav.querySelectorAll("a").forEach(function (link) {
-            link.addEventListener("click", function () {
-              nav.classList.remove("is-open");
-              navToggle.setAttribute("aria-expanded", "false");
-            });
-          });
-        }
-      });
-    })();
-  </script>
-</body>
-</html>
+<!-- FAQ structured data (AEO) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- for item in th.faq.items %}
+    {
+      "@type": "Question",
+      "name": {{ item.q | dump | safe }},
+      "acceptedAnswer": { "@type": "Answer", "text": {{ item.a | dump | safe }} }
+    }{{ "," if not loop.last }}
+    {%- endfor %}
+  ]
+}
+</script>

@@ -1,0 +1,24 @@
+---
+layout: base.njk
+permalink: /promotions/index.html
+pageTitle: "โปรโมชันและข้อเสนอพิเศษ | Metro CAT"
+pageDescription: "แคมเปญและข้อเสนอพิเศษสำหรับลูกค้า Metro CAT ตัวแทน Caterpillar อย่างเป็นทางการในประเทศไทย"
+---
+{% from "partials/cards.njk" import promoCard %}
+
+<section class="page-hero">
+  <div class="container">
+    <h1 data-th="{{ th.ui.promos_title }}" data-en="{{ en.ui.promos_title }}">{{ th.ui.promos_title }}</h1>
+    <p data-th="{{ th.ui.promos_intro }}" data-en="{{ en.ui.promos_intro }}">{{ th.ui.promos_intro }}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="card-grid" data-lang-list>
+      {%- for p in collections.promo | byLang("th") %}{{ promoCard(p, th.ui) }}{%- endfor %}
+      {%- for p in collections.promo | byLang("en") %}{{ promoCard(p, en.ui) }}{%- endfor %}
+    </div>
+    <p class="lang-empty" data-th="{{ th.ui.no_promos }}" data-en="{{ en.ui.no_promos }}" style="display:none">{{ th.ui.no_promos }}</p>
+  </div>
+</section>

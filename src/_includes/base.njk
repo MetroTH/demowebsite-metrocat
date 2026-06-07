@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>{{ pageTitle or th.meta.title }}</title>
+  <meta name="description" content="{{ pageDescription or th.meta.description }}" />
+  <meta name="keywords" content="{{ th.meta.keywords }}" />
+  <meta name="author" content="Metro Machinery Co., Ltd." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
+
+  <link rel="alternate" hreflang="th" href="{{ site.url }}{{ page.url }}?lang=th" />
+  <link rel="alternate" hreflang="en" href="{{ site.url }}{{ page.url }}?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="{{ site.url }}{{ page.url }}" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+  <meta property="og:title" content="{{ pageTitle or th.meta.title }}" />
+  <meta property="og:description" content="{{ pageDescription or th.meta.description }}" />
+  <meta property="og:locale" content="th_TH" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:site_name" content="Metro CAT" />
+  {% if ogImage %}<meta property="og:image" content="{{ site.url }}{{ ogImage }}" />{% endif %}
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ pageTitle or th.meta.title }}" />
+  <meta name="twitter:description" content="{{ pageDescription or th.meta.description }}" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+
+  <!-- Structured Data: Organization (SEO + AEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AutoDealer",
+    "name": "Metro Machinery Co., Ltd. (Metro CAT)",
+    "alternateName": ["Metro CAT", "เมโทร แมชีนเนอรี่", "เมโทรแคต"],
+    "url": "{{ site.url }}/",
+    "description": {{ th.meta.description | dump | safe }},
+    "foundingDate": "1977",
+    "brand": { "@type": "Brand", "name": "Caterpillar" },
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1760 ถนนสุขุมวิท แขวงพระโขนง",
+      "addressLocality": "กรุงเทพมหานคร",
+      "addressCountry": "TH"
+    },
+    "telephone": "+66-2-742-9000",
+    "areaServed": ["Thailand", "Cambodia", "Laos", "China"],
+    "sameAs": ["{{ site.facebook }}", "https://www.linkedin.com/company/metro-machinery-group"]
+  }
+  </script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main" data-th="ข้ามไปยังเนื้อหาหลัก" data-en="Skip to main content">ข้ามไปยังเนื้อหาหลัก</a>
+
+  {% include "partials/header.njk" %}
+
+  <main id="main">
+    {{ content | safe }}
+  </main>
+
+  {% include "partials/footer.njk" %}
+
+  <script>
+    (function () {
+      var STORAGE_KEY = "metrocat-lang";
+      var SUPPORTED = ["th", "en"];
+
+      function resolveInitialLang() {
+        var params = new URLSearchParams(window.location.search);
+        var fromUrl = params.get("lang");
+        if (SUPPORTED.indexOf(fromUrl) !== -1) return fromUrl;
+        var stored = localStorage.getItem(STORAGE_KEY);
+        if (SUPPORTED.indexOf(stored) !== -1) return stored;
+        return "th";
+      }
+
+      function setLanguage(lang) {
+        if (SUPPORTED.indexOf(lang) === -1) lang = "th";
+        document.documentElement.setAttribute("lang", lang);
+
+        document.querySelectorAll("[data-" + lang + "]").forEach(function (el) {
+          var value = el.getAttribute("data-" + lang);
+          if (value === null) return;
+          if (value.indexOf("<") !== -1) { el.innerHTML = value; }
+          else { el.textContent = value; }
+        });
+
+        // Show only cards/items that match the active language
+        document.querySelectorAll(".lang-item").forEach(function (el) {
+          el.style.display = el.getAttribute("data-lang") === lang ? "" : "none";
+        });
+
+        // Empty-state message when a list has no items in this language
+        document.querySelectorAll("[data-lang-list]").forEach(function (list) {
+          var visible = list.querySelectorAll('.lang-item[data-lang="' + lang + '"]').length;
+          var empty = list.parentNode.querySelector(".lang-empty");
+          if (empty) empty.style.display = visible ? "none" : "";
+        });
+
+        document.querySelectorAll(".lang-btn").forEach(function (btn) {
+          var active = btn.getAttribute("data-lang") === lang;
+          btn.classList.toggle("is-active", active);
+          btn.setAttribute("aria-pressed", active ? "true" : "false");
+        });
+
+        try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        setLanguage(resolveInitialLang());
+
+        document.querySelectorAll(".lang-btn").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            setLanguage(btn.getAttribute("data-lang"));
+          });
+        });
+
+        var navToggle = document.querySelector(".nav-toggle");
+        var nav = document.getElementById("primary-nav");
+        if (navToggle && nav) {
+          navToggle.addEventListener("click", function () {
+            var open = nav.classList.toggle("is-open");
+            navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+          });
+          nav.querySelectorAll("a").forEach(function (link) {
+            link.addEventListener("click", function () {
+              nav.classList.remove("is-open");
+              navToggle.setAttribute("aria-expanded", "false");
+            });
+          });
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
