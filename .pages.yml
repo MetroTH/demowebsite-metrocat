@@ -1,7 +1,7 @@
 # ========================================================
 #  Pages CMS configuration  (https://pagescms.org)
 #  เปิด dashboard: https://app.pagescms.org → เลือก repo นี้
-#  แก้ข้อความ/อัปโหลดรูปได้ผ่านหน้าเว็บ แล้วกด Save → เว็บ build ใหม่อัตโนมัติ
+#  แก้ข้อความ/อัปโหลดรูป/เขียนบทความได้ผ่านหน้าเว็บ แล้วกด Save → เว็บ build ใหม่อัตโนมัติ
 # ========================================================
 
 media:
@@ -9,30 +9,73 @@ media:
   output: /images
 
 content:
-  # ---------------- ภาษาไทย ----------------
+  # ===================== บทความ (Blog) =====================
+  - name: posts
+    label: "บทความ (Blog)"
+    type: collection
+    path: src/posts
+    filename: "{year}-{month}-{day}-{primary}.{fields.lang}.md"
+    view:
+      fields: [title, lang, date, category]
+    fields:
+      - { name: title, label: "หัวข้อบทความ", type: string }
+      - name: lang
+        label: "ภาษา"
+        type: select
+        options:
+          values: ["th", "en"]
+        default: "th"
+      - { name: date, label: "วันที่เผยแพร่", type: date }
+      - { name: category, label: "หมวดหมู่", type: string }
+      - { name: excerpt, label: "สรุปย่อ (excerpt)", type: text }
+      - { name: image, label: "รูปหน้าปก", type: image }
+      - { name: author, label: "ผู้เขียน", type: string, default: "Metro CAT" }
+      - { name: draft, label: "ฉบับร่าง (ไม่เผยแพร่)", type: boolean, default: false }
+      - { name: body, label: "เนื้อหา", type: rich-text }
+
+  # ===================== โปรโมชัน =====================
+  - name: promotions
+    label: "โปรโมชัน"
+    type: collection
+    path: src/promotions
+    filename: "{primary}.{fields.lang}.md"
+    view:
+      fields: [title, lang, start_date, end_date]
+    fields:
+      - { name: title, label: "ชื่อโปรโมชัน", type: string }
+      - name: lang
+        label: "ภาษา"
+        type: select
+        options:
+          values: ["th", "en"]
+        default: "th"
+      - { name: date, label: "วันที่ (ใช้จัดเรียง = วันเริ่ม)", type: date }
+      - { name: start_date, label: "เริ่มโปรโมชัน", type: date }
+      - { name: end_date, label: "สิ้นสุดโปรโมชัน", type: date }
+      - { name: excerpt, label: "สรุปย่อ", type: text }
+      - { name: image, label: "รูปหน้าปก", type: image }
+      - { name: draft, label: "ฉบับร่าง (ไม่เผยแพร่)", type: boolean, default: false }
+      - { name: body, label: "รายละเอียด", type: rich-text }
+
+  # ===================== หน้าแรก — ภาษาไทย =====================
   - name: th_content
-    label: "เนื้อหาภาษาไทย (TH)"
+    label: "หน้าแรก — ภาษาไทย (TH)"
     type: file
     path: src/_data/th.yaml
     fields:
       - name: meta
-        label: "SEO (Title / Description)"
+        label: "SEO"
         type: object
         fields:
-          - { name: title, label: "Title (แท็บเบราว์เซอร์/Google)", type: string }
-          - { name: description, label: "คำอธิบาย (Meta description)", type: text }
-          - { name: keywords, label: "คีย์เวิร์ด", type: text }
-      - name: nav
-        label: "เมนู"
+          - { name: title, label: "Title", type: string }
+          - { name: description, label: "Meta description", type: text }
+          - { name: keywords, label: "Keywords", type: text }
+      - name: topbar
+        label: "แถบบนสุด"
         type: object
         fields:
-          - { name: home, label: "หน้าแรก", type: string }
-          - { name: about, label: "เกี่ยวกับเรา", type: string }
-          - { name: products, label: "สินค้า", type: string }
-          - { name: services, label: "บริการ", type: string }
-          - { name: why, label: "ทำไมต้องเรา", type: string }
-          - { name: faq, label: "คำถามที่พบบ่อย", type: string }
-          - { name: contact, label: "ติดต่อเรา", type: string }
+          - { name: hours, label: "เวลาทำการ", type: string }
+          - { name: cta, label: "ปุ่ม", type: string }
       - name: hero
         label: "ส่วนหัว (Hero)"
         type: object
@@ -42,6 +85,7 @@ content:
           - { name: lead, label: "คำโปรย", type: text }
           - { name: cta_primary, label: "ปุ่มหลัก", type: string }
           - { name: cta_secondary, label: "ปุ่มรอง", type: string }
+          - { name: image, label: "รูปพื้นหลัง Hero", type: image }
           - name: stats
             label: "ตัวเลขสถิติ"
             type: object
@@ -49,6 +93,14 @@ content:
             fields:
               - { name: value, label: "ตัวเลข", type: string }
               - { name: label, label: "คำอธิบาย", type: string }
+      - name: features
+        label: "กล่องจุดเด่น (4 จุด)"
+        type: object
+        list: true
+        fields:
+          - { name: icon, label: "ไอคอน (อีโมจิ)", type: string }
+          - { name: title, label: "หัวข้อ", type: string }
+          - { name: desc, label: "คำอธิบาย", type: string }
       - name: about
         label: "เกี่ยวกับเรา"
         type: object
@@ -59,7 +111,7 @@ content:
           - { name: promise_title, label: "หัวข้อกล่องคำมั่นสัญญา", type: string }
           - { name: promise, label: "รายการคำมั่นสัญญา", type: string, list: true }
       - name: products
-        label: "สินค้า"
+        label: "สินค้า (หมวดหมู่)"
         type: object
         fields:
           - { name: title, label: "หัวข้อ", type: string }
@@ -71,6 +123,17 @@ content:
             fields:
               - { name: title, label: "ชื่อสินค้า", type: string }
               - { name: desc, label: "รายละเอียด", type: text }
+              - { name: image, label: "รูปสินค้า", type: image }
+      - name: promo_banner
+        label: "แบนเนอร์โปรโมชัน (หน้าแรก)"
+        type: object
+        fields:
+          - { name: eyebrow, label: "ข้อความเล็ก", type: string }
+          - { name: title, label: "หัวข้อ", type: text }
+          - { name: text, label: "คำอธิบาย", type: text }
+          - { name: cta, label: "ปุ่ม", type: string }
+          - { name: url, label: "ลิงก์ปุ่ม", type: string }
+          - { name: image, label: "รูปพื้นหลัง", type: image }
       - name: services
         label: "บริการ"
         type: object
@@ -97,6 +160,20 @@ content:
               - { name: num, label: "ลำดับ", type: string }
               - { name: title, label: "หัวข้อ", type: string }
               - { name: desc, label: "รายละเอียด", type: text }
+      - name: blog_section
+        label: "ส่วนบทความ (หน้าแรก)"
+        type: object
+        fields:
+          - { name: title, label: "หัวข้อ", type: string }
+          - { name: intro, label: "คำนำ", type: text }
+          - { name: view_all, label: "ปุ่มดูทั้งหมด", type: string }
+      - name: promo_section
+        label: "ส่วนโปรโมชัน (หน้าแรก)"
+        type: object
+        fields:
+          - { name: title, label: "หัวข้อ", type: string }
+          - { name: intro, label: "คำนำ", type: text }
+          - { name: view_all, label: "ปุ่มดูทั้งหมด", type: string }
       - name: faq
         label: "คำถามที่พบบ่อย"
         type: object
@@ -115,14 +192,21 @@ content:
         fields:
           - { name: title, label: "หัวข้อ", type: string }
           - { name: intro, label: "คำนำ", type: text }
-          - { name: call_label, label: "ป้ายโทร", type: string }
           - { name: phone, label: "เบอร์โทร", type: string }
-          - { name: visit_label, label: "ป้ายที่อยู่", type: string }
           - { name: address, label: "ที่อยู่", type: text }
-          - { name: follow_label, label: "ป้ายโซเชียล", type: string }
-          - { name: facebook_text, label: "ข้อความ Facebook", type: string }
           - { name: facebook_url, label: "ลิงก์ Facebook", type: string }
           - { name: cta, label: "ปุ่ม CTA", type: string }
+      - name: nav
+        label: "เมนู (ป้ายชื่อ)"
+        type: object
+        fields:
+          - { name: home, label: "หน้าแรก", type: string }
+          - { name: products, label: "สินค้า", type: string }
+          - { name: services, label: "บริการ", type: string }
+          - { name: blog, label: "บทความ", type: string }
+          - { name: promotions, label: "โปรโมชัน", type: string }
+          - { name: about, label: "เกี่ยวกับเรา", type: string }
+          - { name: contact, label: "ติดต่อเรา", type: string }
       - name: footer
         label: "ส่วนท้าย"
         type: object
@@ -130,39 +214,29 @@ content:
           - { name: tagline, label: "คำโปรย", type: text }
           - { name: legal, label: "ลิขสิทธิ์", type: text }
 
-  # ---------------- English ----------------
+  # ===================== หน้าแรก — English =====================
   - name: en_content
-    label: "English content (EN)"
+    label: "หน้าแรก — English (EN)"
     type: file
     path: src/_data/en.yaml
     fields:
       - name: meta
-        label: "SEO (Title / Description)"
+        label: "SEO"
         type: object
         fields:
           - { name: title, label: "Title", type: string }
           - { name: description, label: "Meta description", type: text }
           - { name: keywords, label: "Keywords", type: text }
-      - name: nav
-        label: "Menu"
-        type: object
-        fields:
-          - { name: home, label: "Home", type: string }
-          - { name: about, label: "About", type: string }
-          - { name: products, label: "Products", type: string }
-          - { name: services, label: "Services", type: string }
-          - { name: why, label: "Why Us", type: string }
-          - { name: faq, label: "FAQ", type: string }
-          - { name: contact, label: "Contact", type: string }
       - name: hero
         label: "Hero"
         type: object
         fields:
-          - { name: eyebrow, label: "Eyebrow text", type: string }
+          - { name: eyebrow, label: "Eyebrow", type: string }
           - { name: title, label: "Headline", type: text }
-          - { name: lead, label: "Lead text", type: text }
+          - { name: lead, label: "Lead", type: text }
           - { name: cta_primary, label: "Primary button", type: string }
           - { name: cta_secondary, label: "Secondary button", type: string }
+          - { name: image, label: "Hero background image", type: image }
           - name: stats
             label: "Stats"
             type: object
@@ -170,6 +244,14 @@ content:
             fields:
               - { name: value, label: "Value", type: string }
               - { name: label, label: "Label", type: string }
+      - name: features
+        label: "Feature boxes"
+        type: object
+        list: true
+        fields:
+          - { name: icon, label: "Icon (emoji)", type: string }
+          - { name: title, label: "Title", type: string }
+          - { name: desc, label: "Description", type: string }
       - name: about
         label: "About"
         type: object
@@ -192,6 +274,17 @@ content:
             fields:
               - { name: title, label: "Title", type: string }
               - { name: desc, label: "Description", type: text }
+              - { name: image, label: "Image", type: image }
+      - name: promo_banner
+        label: "Promo banner"
+        type: object
+        fields:
+          - { name: eyebrow, label: "Eyebrow", type: string }
+          - { name: title, label: "Title", type: text }
+          - { name: text, label: "Text", type: text }
+          - { name: cta, label: "Button", type: string }
+          - { name: url, label: "Button link", type: string }
+          - { name: image, label: "Background image", type: image }
       - name: services
         label: "Services"
         type: object
@@ -218,6 +311,20 @@ content:
               - { name: num, label: "Number", type: string }
               - { name: title, label: "Title", type: string }
               - { name: desc, label: "Description", type: text }
+      - name: blog_section
+        label: "Blog section"
+        type: object
+        fields:
+          - { name: title, label: "Title", type: string }
+          - { name: intro, label: "Intro", type: text }
+          - { name: view_all, label: "View-all button", type: string }
+      - name: promo_section
+        label: "Promotions section"
+        type: object
+        fields:
+          - { name: title, label: "Title", type: string }
+          - { name: intro, label: "Intro", type: text }
+          - { name: view_all, label: "View-all button", type: string }
       - name: faq
         label: "FAQ"
         type: object
@@ -236,17 +343,37 @@ content:
         fields:
           - { name: title, label: "Title", type: string }
           - { name: intro, label: "Intro", type: text }
-          - { name: call_label, label: "Call label", type: string }
           - { name: phone, label: "Phone", type: string }
-          - { name: visit_label, label: "Visit label", type: string }
           - { name: address, label: "Address", type: text }
-          - { name: follow_label, label: "Follow label", type: string }
-          - { name: facebook_text, label: "Facebook text", type: string }
           - { name: facebook_url, label: "Facebook URL", type: string }
           - { name: cta, label: "CTA button", type: string }
+      - name: nav
+        label: "Menu labels"
+        type: object
+        fields:
+          - { name: home, label: "Home", type: string }
+          - { name: products, label: "Products", type: string }
+          - { name: services, label: "Services", type: string }
+          - { name: blog, label: "Blog", type: string }
+          - { name: promotions, label: "Promotions", type: string }
+          - { name: about, label: "About", type: string }
+          - { name: contact, label: "Contact", type: string }
       - name: footer
         label: "Footer"
         type: object
         fields:
           - { name: tagline, label: "Tagline", type: text }
           - { name: legal, label: "Legal", type: text }
+
+  # ===================== ค่ากลางของเว็บ =====================
+  - name: site
+    label: "ตั้งค่าเว็บ (โลโก้ / เบอร์ / โซเชียล)"
+    type: file
+    path: src/_data/site.yaml
+    fields:
+      - { name: brand, label: "ชื่อแบรนด์", type: string }
+      - { name: phone, label: "เบอร์โทร (แสดงผล)", type: string }
+      - { name: phone_link, label: "เบอร์โทร (สำหรับลิงก์ tel:)", type: string }
+      - { name: facebook, label: "ลิงก์ Facebook", type: string }
+      - { name: url, label: "URL เว็บไซต์", type: string }
+      - { name: logo, label: "โลโก้", type: image }

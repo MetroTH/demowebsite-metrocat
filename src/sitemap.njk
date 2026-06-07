@@ -1,0 +1,23 @@
+---
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>{{ site.url }}/</loc>
+    <xhtml:link rel="alternate" hreflang="th" href="{{ site.url }}/?lang=th" />
+    <xhtml:link rel="alternate" hreflang="en" href="{{ site.url }}/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="{{ site.url }}/" />
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url><loc>{{ site.url }}/blog/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>{{ site.url }}/promotions/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  {%- for p in collections.post %}
+  <url><loc>{{ site.url }}{{ p.url }}</loc><lastmod>{{ p.date.toISOString() }}</lastmod><priority>0.7</priority></url>
+  {%- endfor %}
+  {%- for p in collections.promo %}
+  <url><loc>{{ site.url }}{{ p.url }}</loc><lastmod>{{ p.date.toISOString() }}</lastmod><priority>0.7</priority></url>
+  {%- endfor %}
+</urlset>

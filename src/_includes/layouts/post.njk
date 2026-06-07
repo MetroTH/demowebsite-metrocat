@@ -1,0 +1,42 @@
+---
+layout: base.njk
+---
+<article class="post">
+  <div class="post-hero{% if not image %} no-image{% endif %}"{% if image %} style="background-image:url('{{ image }}')"{% endif %}>
+    <div class="container">
+      <a href="/blog/" class="post-back" data-th="{{ th.ui.back_to_blog }}" data-en="{{ en.ui.back_to_blog }}">{% if lang == 'en' %}{{ en.ui.back_to_blog }}{% else %}{{ th.ui.back_to_blog }}{% endif %}</a>
+      {% if category %}<span class="post-cat">{{ category }}</span>{% endif %}
+      <h1>{{ title }}</h1>
+      <div class="post-meta">
+        <time>{{ page.date | formatDate(lang) }}</time>
+        {% if author %}<span>· {% if lang == 'en' %}{{ en.ui.by_author }}{% else %}{{ th.ui.by_author }}{% endif %} {{ author }}</span>{% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="container narrow post-body">
+    {{ content | safe }}
+
+    {% set basename = page.fileSlug | baseSlug %}
+    {% set other = "en" if lang == "th" else "th" %}
+    {% for p in collections.post %}
+      {% if (p.fileSlug | baseSlug) == basename and p.data.lang == other %}
+      <p class="post-translation"><a href="{{ p.url }}">{% if lang == 'th' %}🌐 Read this article in English{% else %}🌐 อ่านบทความนี้ฉบับภาษาไทย{% endif %}</a></p>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": {{ title | dump | safe }},
+    "datePublished": "{{ page.date.toISOString() }}",
+    "inLanguage": "{{ lang }}",
+    "author": { "@type": "Organization", "name": {{ (author or "Metro CAT") | dump | safe }} },
+    "publisher": { "@type": "Organization", "name": "Metro Machinery Co., Ltd. (Metro CAT)" }{% if excerpt %},
+    "description": {{ excerpt | dump | safe }}{% endif %}{% if image %},
+    "image": "{{ site.url }}{{ image }}"{% endif %}
+  }
+  </script>
+</article>

@@ -1,0 +1,31 @@
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-col footer-brand">
+      <span class="brand-mark">METRO</span><span class="brand-cat">CAT</span>
+      <p data-th="{{ th.footer.tagline }}" data-en="{{ en.footer.tagline }}">{{ th.footer.tagline }}</p>
+      <a href="{{ site.facebook }}" rel="noopener" class="footer-social">Facebook: Metro CAT</a>
+    </div>
+
+    <div class="footer-col">
+      <h4 data-th="{{ th.footer.links_title }}" data-en="{{ en.footer.links_title }}">{{ th.footer.links_title }}</h4>
+      <ul>
+        <li><a href="/#products" data-th="{{ th.nav.products }}" data-en="{{ en.nav.products }}">{{ th.nav.products }}</a></li>
+        <li><a href="/#services" data-th="{{ th.nav.services }}" data-en="{{ en.nav.services }}">{{ th.nav.services }}</a></li>
+        <li><a href="/blog/" data-th="{{ th.nav.blog }}" data-en="{{ en.nav.blog }}">{{ th.nav.blog }}</a></li>
+        <li><a href="/promotions/" data-th="{{ th.nav.promotions }}" data-en="{{ en.nav.promotions }}">{{ th.nav.promotions }}</a></li>
+        <li><a href="/#faq" data-th="{{ th.nav.faq }}" data-en="{{ en.nav.faq }}">{{ th.nav.faq }}</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4 data-th="{{ th.footer.contact_title }}" data-en="{{ en.footer.contact_title }}">{{ th.footer.contact_title }}</h4>
+      <ul>
+        <li><a href="tel:{{ site.phone_link }}">☎ {{ site.phone }}</a></li>
+        <li><span data-th="{{ th.contact.address }}" data-en="{{ en.contact.address }}">{{ th.contact.address }}</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-legal">
+    <p data-th="{{ th.footer.legal }}" data-en="{{ en.footer.legal }}">{{ th.footer.legal }}</p>
+  </div>
+</footer>

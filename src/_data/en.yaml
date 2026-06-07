@@ -1,6 +1,5 @@
 # ========================================================
 #  English content — edit via Pages CMS or directly in this file.
-#  Every save rebuilds and auto-publishes the site.
 # ========================================================
 
 meta:
@@ -14,8 +13,14 @@ nav:
   products: "Products"
   services: "Services"
   why: "Why Us"
+  blog: "Blog"
+  promotions: "Promotions"
   faq: "FAQ"
   contact: "Contact Us"
+
+topbar:
+  hours: "Mon–Sat 8:00–17:00"
+  cta: "Contact Sales"
 
 hero:
   eyebrow: "Authorized Caterpillar® Dealer in Thailand · Since 1977"
@@ -23,6 +28,7 @@ hero:
   lead: "Metro Machinery (Metro CAT) is the sole authorized Caterpillar dealer in Thailand, delivering world-class heavy equipment, engines, generators, genuine parts and certified service across 35+ branches."
   cta_primary: "Explore Equipment"
   cta_secondary: "Request a Quote"
+  image: ""
   stats:
     - value: "1977"
       label: "Established"
@@ -32,6 +38,20 @@ hero:
       label: "Trained staff"
     - value: "25,000+"
       label: "Genuine parts"
+
+features:
+  - icon: "🏅"
+    title: "Sole Authorized Dealer"
+    desc: "The official Caterpillar dealer in Thailand"
+  - icon: "⚙️"
+    title: "25,000+ Genuine Parts"
+    desc: "Genuine parts in stock, shipped nationwide"
+  - icon: "📍"
+    title: "35+ Branches"
+    desc: "A service network covering every region"
+  - icon: "👷"
+    title: "Expert Technicians"
+    desc: "Over 920 factory-trained personnel"
 
 about:
   title: "About Metro Machinery"
@@ -50,16 +70,30 @@ products:
   items:
     - title: "Excavators & Loaders"
       desc: "Powerful, fuel-efficient CAT excavators, wheel loaders and dozers built for demanding construction and earthmoving work."
+      image: ""
     - title: "Mining Equipment"
       desc: "Heavy-duty machines engineered for safe, high-volume mining and quarrying operations across Thailand and the region."
+      image: ""
     - title: "Engines & Generators"
       desc: "Caterpillar diesel engines and generator sets for industrial, marine, petroleum and standby power generation."
+      image: ""
     - title: "Material Handling"
       desc: "Reliable handling solutions to move, lift and load materials efficiently in ports, yards and warehouses."
+      image: ""
     - title: "Agriculture & Industry"
       desc: "Equipment tailored for agricultural, petroleum and general industrial applications."
+      image: ""
     - title: "Genuine Parts"
       desc: "Over 25,000 genuine Caterpillar parts and components stocked for fast, dependable delivery."
+      image: ""
+
+promo_banner:
+  eyebrow: "Special Offer"
+  title: "Ready to upgrade your equipment fleet?"
+  text: "Talk to our experts today for tailored advice on machines, parts and service packages that fit your operation."
+  cta: "See Latest Promotions"
+  url: "/promotions/"
+  image: ""
 
 services:
   title: "Service & Support That Keeps You Running"
@@ -90,6 +124,16 @@ why:
       title: "Lowest Cost of Ownership"
       desc: "Genuine parts, expert service and proven uptime deliver the best long-term value for your fleet."
 
+blog_section:
+  title: "Latest News & Articles"
+  intro: "Tips, machine-care knowledge and the latest news from Metro CAT"
+  view_all: "View all articles"
+
+promo_section:
+  title: "Latest Promotions"
+  intro: "Special offers and campaigns for Metro CAT customers"
+  view_all: "View all promotions"
+
 faq:
   title: "Frequently Asked Questions"
   items:
@@ -118,4 +162,23 @@ contact:
 
 footer:
   tagline: "Metro Machinery Co., Ltd. — Sole authorized Caterpillar® dealer in Thailand since 1977."
+  links_title: "Quick Links"
+  contact_title: "Contact"
   legal: "© 2026 Metro Machinery Co., Ltd. All rights reserved. Caterpillar, CAT and their respective logos are trademarks of Caterpillar Inc."
+
+ui:
+  read_more: "Read more"
+  back_to_blog: "← Back to blog"
+  back_to_promos: "← Back to promotions"
+  published_on: "Published on"
+  by_author: "by"
+  valid_from: "From"
+  valid_until: "Valid until"
+  category_label: "Category"
+  blog_title: "News & Articles"
+  blog_intro: "Knowledge, tips and the latest news about Caterpillar equipment from Metro CAT"
+  promos_title: "Promotions & Special Offers"
+  promos_intro: "Campaigns and special offers for Metro CAT customers"
+  no_posts: "No articles in this language yet — try switching language or check back soon."
+  no_promos: "No promotions in this language yet — try switching language or check back soon."
+  read_other_lang: "Read this article in Thai"
