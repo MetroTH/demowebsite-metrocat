@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Answer-engine / AI crawlers welcome
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://www.metrocat.com/sitemap.xml
