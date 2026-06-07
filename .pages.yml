@@ -1,0 +1,252 @@
+# ========================================================
+#  Pages CMS configuration  (https://pagescms.org)
+#  เปิด dashboard: https://app.pagescms.org → เลือก repo นี้
+#  แก้ข้อความ/อัปโหลดรูปได้ผ่านหน้าเว็บ แล้วกด Save → เว็บ build ใหม่อัตโนมัติ
+# ========================================================
+
+media:
+  input: src/images
+  output: /images
+
+content:
+  # ---------------- ภาษาไทย ----------------
+  - name: th_content
+    label: "เนื้อหาภาษาไทย (TH)"
+    type: file
+    path: src/_data/th.yaml
+    fields:
+      - name: meta
+        label: "SEO (Title / Description)"
+        type: object
+        fields:
+          - { name: title, label: "Title (แท็บเบราว์เซอร์/Google)", type: string }
+          - { name: description, label: "คำอธิบาย (Meta description)", type: text }
+          - { name: keywords, label: "คีย์เวิร์ด", type: text }
+      - name: nav
+        label: "เมนู"
+        type: object
+        fields:
+          - { name: home, label: "หน้าแรก", type: string }
+          - { name: about, label: "เกี่ยวกับเรา", type: string }
+          - { name: products, label: "สินค้า", type: string }
+          - { name: services, label: "บริการ", type: string }
+          - { name: why, label: "ทำไมต้องเรา", type: string }
+          - { name: faq, label: "คำถามที่พบบ่อย", type: string }
+          - { name: contact, label: "ติดต่อเรา", type: string }
+      - name: hero
+        label: "ส่วนหัว (Hero)"
+        type: object
+        fields:
+          - { name: eyebrow, label: "ข้อความเล็กด้านบน", type: string }
+          - { name: title, label: "หัวข้อใหญ่", type: text }
+          - { name: lead, label: "คำโปรย", type: text }
+          - { name: cta_primary, label: "ปุ่มหลัก", type: string }
+          - { name: cta_secondary, label: "ปุ่มรอง", type: string }
+          - name: stats
+            label: "ตัวเลขสถิติ"
+            type: object
+            list: true
+            fields:
+              - { name: value, label: "ตัวเลข", type: string }
+              - { name: label, label: "คำอธิบาย", type: string }
+      - name: about
+        label: "เกี่ยวกับเรา"
+        type: object
+        fields:
+          - { name: title, label: "หัวข้อ", type: string }
+          - { name: p1, label: "ย่อหน้า 1", type: text }
+          - { name: p2, label: "ย่อหน้า 2", type: text }
+          - { name: promise_title, label: "หัวข้อกล่องคำมั่นสัญญา", type: string }
+          - { name: promise, label: "รายการคำมั่นสัญญา", type: string, list: true }
+      - name: products
+        label: "สินค้า"
+        type: object
+        fields:
+          - { name: title, label: "หัวข้อ", type: string }
+          - { name: intro, label: "คำนำ", type: text }
+          - name: items
+            label: "รายการสินค้า"
+            type: object
+            list: true
+            fields:
+              - { name: title, label: "ชื่อสินค้า", type: string }
+              - { name: desc, label: "รายละเอียด", type: text }
+      - name: services
+        label: "บริการ"
+        type: object
+        fields:
+          - { name: title, label: "หัวข้อ", type: string }
+          - { name: intro, label: "คำนำ", type: text }
+          - name: items
+            label: "รายการบริการ"
+            type: object
+            list: true
+            fields:
+              - { name: title, label: "ชื่อบริการ", type: string }
+              - { name: desc, label: "รายละเอียด", type: text }
+      - name: why
+        label: "ทำไมต้องเรา"
+        type: object
+        fields:
+          - { name: title, label: "หัวข้อ", type: string }
+          - name: items
+            label: "เหตุผล"
+            type: object
+            list: true
+            fields:
+              - { name: num, label: "ลำดับ", type: string }
+              - { name: title, label: "หัวข้อ", type: string }
+              - { name: desc, label: "รายละเอียด", type: text }
+      - name: faq
+        label: "คำถามที่พบบ่อย"
+        type: object
+        fields:
+          - { name: title, label: "หัวข้อ", type: string }
+          - name: items
+            label: "คำถาม-คำตอบ"
+            type: object
+            list: true
+            fields:
+              - { name: q, label: "คำถาม", type: string }
+              - { name: a, label: "คำตอบ", type: text }
+      - name: contact
+        label: "ติดต่อเรา"
+        type: object
+        fields:
+          - { name: title, label: "หัวข้อ", type: string }
+          - { name: intro, label: "คำนำ", type: text }
+          - { name: call_label, label: "ป้ายโทร", type: string }
+          - { name: phone, label: "เบอร์โทร", type: string }
+          - { name: visit_label, label: "ป้ายที่อยู่", type: string }
+          - { name: address, label: "ที่อยู่", type: text }
+          - { name: follow_label, label: "ป้ายโซเชียล", type: string }
+          - { name: facebook_text, label: "ข้อความ Facebook", type: string }
+          - { name: facebook_url, label: "ลิงก์ Facebook", type: string }
+          - { name: cta, label: "ปุ่ม CTA", type: string }
+      - name: footer
+        label: "ส่วนท้าย"
+        type: object
+        fields:
+          - { name: tagline, label: "คำโปรย", type: text }
+          - { name: legal, label: "ลิขสิทธิ์", type: text }
+
+  # ---------------- English ----------------
+  - name: en_content
+    label: "English content (EN)"
+    type: file
+    path: src/_data/en.yaml
+    fields:
+      - name: meta
+        label: "SEO (Title / Description)"
+        type: object
+        fields:
+          - { name: title, label: "Title", type: string }
+          - { name: description, label: "Meta description", type: text }
+          - { name: keywords, label: "Keywords", type: text }
+      - name: nav
+        label: "Menu"
+        type: object
+        fields:
+          - { name: home, label: "Home", type: string }
+          - { name: about, label: "About", type: string }
+          - { name: products, label: "Products", type: string }
+          - { name: services, label: "Services", type: string }
+          - { name: why, label: "Why Us", type: string }
+          - { name: faq, label: "FAQ", type: string }
+          - { name: contact, label: "Contact", type: string }
+      - name: hero
+        label: "Hero"
+        type: object
+        fields:
+          - { name: eyebrow, label: "Eyebrow text", type: string }
+          - { name: title, label: "Headline", type: text }
+          - { name: lead, label: "Lead text", type: text }
+          - { name: cta_primary, label: "Primary button", type: string }
+          - { name: cta_secondary, label: "Secondary button", type: string }
+          - name: stats
+            label: "Stats"
+            type: object
+            list: true
+            fields:
+              - { name: value, label: "Value", type: string }
+              - { name: label, label: "Label", type: string }
+      - name: about
+        label: "About"
+        type: object
+        fields:
+          - { name: title, label: "Title", type: string }
+          - { name: p1, label: "Paragraph 1", type: text }
+          - { name: p2, label: "Paragraph 2", type: text }
+          - { name: promise_title, label: "Promise box title", type: string }
+          - { name: promise, label: "Promise items", type: string, list: true }
+      - name: products
+        label: "Products"
+        type: object
+        fields:
+          - { name: title, label: "Title", type: string }
+          - { name: intro, label: "Intro", type: text }
+          - name: items
+            label: "Product items"
+            type: object
+            list: true
+            fields:
+              - { name: title, label: "Title", type: string }
+              - { name: desc, label: "Description", type: text }
+      - name: services
+        label: "Services"
+        type: object
+        fields:
+          - { name: title, label: "Title", type: string }
+          - { name: intro, label: "Intro", type: text }
+          - name: items
+            label: "Service items"
+            type: object
+            list: true
+            fields:
+              - { name: title, label: "Title", type: string }
+              - { name: desc, label: "Description", type: text }
+      - name: why
+        label: "Why Us"
+        type: object
+        fields:
+          - { name: title, label: "Title", type: string }
+          - name: items
+            label: "Reasons"
+            type: object
+            list: true
+            fields:
+              - { name: num, label: "Number", type: string }
+              - { name: title, label: "Title", type: string }
+              - { name: desc, label: "Description", type: text }
+      - name: faq
+        label: "FAQ"
+        type: object
+        fields:
+          - { name: title, label: "Title", type: string }
+          - name: items
+            label: "Questions & answers"
+            type: object
+            list: true
+            fields:
+              - { name: q, label: "Question", type: string }
+              - { name: a, label: "Answer", type: text }
+      - name: contact
+        label: "Contact"
+        type: object
+        fields:
+          - { name: title, label: "Title", type: string }
+          - { name: intro, label: "Intro", type: text }
+          - { name: call_label, label: "Call label", type: string }
+          - { name: phone, label: "Phone", type: string }
+          - { name: visit_label, label: "Visit label", type: string }
+          - { name: address, label: "Address", type: text }
+          - { name: follow_label, label: "Follow label", type: string }
+          - { name: facebook_text, label: "Facebook text", type: string }
+          - { name: facebook_url, label: "Facebook URL", type: string }
+          - { name: cta, label: "CTA button", type: string }
+      - name: footer
+        label: "Footer"
+        type: object
+        fields:
+          - { name: tagline, label: "Tagline", type: text }
+          - { name: legal, label: "Legal", type: text }
