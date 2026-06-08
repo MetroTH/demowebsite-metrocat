@@ -2,36 +2,59 @@ import { Topbar } from "@/components/layout/topbar";
 import { Card, CardBody } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar } from "@/components/ui/avatar";
-import { mockStats, mockConversations, mockAgents } from "@/lib/mock-data";
+import { getDashboardStats } from "@/lib/data/stats";
+import { getConversations } from "@/lib/data/conversations";
+import { getAgents } from "@/lib/data/agents";
 import { formatTime } from "@/lib/utils";
 import {
   MessageSquare, CheckCircle2, Clock, Users,
   Phone, PhoneMissed, TrendingUp, ArrowUpRight
 } from "lucide-react";
 import { ChannelIcon } from "@/components/inbox/channel-icon";
-
-const statCards = [
-  { label: "Open Conversations", value: mockStats.openConversations, icon: MessageSquare, color: "text-blue-600", bg: "bg-blue-50", trend: "+12%" },
-  { label: "Resolved Today", value: mockStats.resolvedToday, icon: CheckCircle2, color: "text-green-600", bg: "bg-green-50", trend: "+8%" },
-  { label: "Avg Response Time", value: `${mockStats.avgResponseTime}m`, icon: Clock, color: "text-purple-600", bg: "bg-purple-50", trend: "-2m" },
-  { label: "Online Agents", value: `${mockStats.onlineAgents}/${mockStats.totalAgents}`, icon: Users, color: "text-orange-600", bg: "bg-orange-50", trend: "" },
-  { label: "Calls Today", value: mockStats.callsToday, icon: Phone, color: "text-indigo-600", bg: "bg-indigo-50", trend: "+3" },
-  { label: "Missed Calls", value: mockStats.missedCalls, icon: PhoneMissed, color: "text-red-600", bg: "bg-red-50", trend: "-1" },
-];
+import type { Conversation } from "@/types";
 
 const statusVariant: Record<string, "default" | "warning" | "success" | "secondary"> = {
   open: "default", pending: "warning", resolved: "success", snoozed: "secondary",
 };
 
-export default function DashboardPage() {
-  const recentConversations = mockConversations.slice(0, 5);
+const channelDist = [
+  { channel: "line" as const, label: "LINE", color: "bg-green-500" },
+  { channel: "whatsapp" as const, label: "WhatsApp", color: "bg-emerald-500" },
+  { channel: "facebook" as const, label: "Facebook", color: "bg-blue-500" },
+  { channel: "voice" as const, label: "Voice", color: "bg-purple-500" },
+  { channel: "sms" as const, label: "SMS", color: "bg-orange-500" },
+];
+
+export default async function DashboardPage() {
+  const [stats, conversations, agents] = await Promise.all([
+    getDashboardStats(),
+    getConversations(),
+    getAgents(),
+  ]);
+
+  const recentConversations = conversations.slice(0, 5);
+  const total = conversations.length || 1;
+
+  const channelCounts = conversations.reduce<Record<string, number>>((acc, c) => {
+    acc[c.channel] = (acc[c.channel] ?? 0) + 1;
+    return acc;
+  }, {});
+
+  const statCards = [
+    { label: "Open Conversations", value: stats.openConversations, icon: MessageSquare, color: "text-blue-600", bg: "bg-blue-50", trend: "" },
+    { label: "Resolved Today", value: stats.resolvedToday, icon: CheckCircle2, color: "text-green-600", bg: "bg-green-50", trend: "" },
+    { label: "Avg Response Time", value: `${stats.avgResponseTime}m`, icon: Clock, color: "text-purple-600", bg: "bg-purple-50", trend: "" },
+    { label: "Online Agents", value: `${stats.onlineAgents}/${stats.totalAgents}`, icon: Users, color: "text-orange-600", bg: "bg-orange-50", trend: "" },
+    { label: "Calls Today", value: stats.callsToday, icon: Phone, color: "text-indigo-600", bg: "bg-indigo-50", trend: "" },
+    { label: "Missed Calls", value: stats.missedCalls, icon: PhoneMissed, color: "text-red-600", bg: "bg-red-50", trend: "" },
+  ];
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
       <Topbar title="Dashboard" subtitle="Overview of today's activity" />
       <div className="flex-1 overflow-y-auto p-6 space-y-6">
 
-        {/* Stats Grid */}
+        {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
           {statCards.map((stat) => (
             <Card key={stat.label}>
@@ -64,7 +87,10 @@ export default function DashboardPage() {
                 </a>
               </div>
               <div className="divide-y divide-slate-50">
-                {recentConversations.map((conv) => (
+                {recentConversations.length === 0 && (
+                  <p className="px-5 py-8 text-sm text-center text-slate-400">No conversations yet</p>
+                )}
+                {recentConversations.map((conv: Conversation) => (
                   <div key={conv.id} className="flex items-center gap-3 px-5 py-3.5 hover:bg-slate-50 transition-colors cursor-pointer">
                     <div className="relative">
                       <Avatar name={conv.contact.name} size="md" />
@@ -75,7 +101,7 @@ export default function DashboardPage() {
                         <p className="text-sm font-medium text-slate-900 truncate">{conv.contact.name}</p>
                         <span className="text-xs text-slate-400 shrink-0">{formatTime(conv.updatedAt)}</span>
                       </div>
-                      <p className="text-xs text-slate-500 truncate mt-0.5">{conv.lastMessage?.content}</p>
+                      <p className="text-xs text-slate-500 truncate mt-0.5">{conv.lastMessage?.content ?? "—"}</p>
                     </div>
                     <div className="flex items-center gap-2 shrink-0">
                       <Badge variant={statusVariant[conv.status]}>{conv.status}</Badge>
@@ -92,53 +118,45 @@ export default function DashboardPage() {
           </div>
 
           {/* Agent Status */}
-          <div>
-            <Card>
-              <div className="px-5 py-4 border-b border-slate-100">
-                <h2 className="font-semibold text-slate-900">Agent Status</h2>
-              </div>
-              <div className="divide-y divide-slate-50">
-                {mockAgents.map((agent) => (
-                  <div key={agent.id} className="flex items-center gap-3 px-5 py-3.5">
-                    <Avatar name={agent.name} size="md" status={agent.status} />
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-slate-900 truncate">{agent.name}</p>
-                      <p className="text-xs text-slate-500 capitalize">{agent.role}</p>
-                    </div>
-                    <Badge variant={agent.status === "online" ? "success" : agent.status === "busy" ? "destructive" : "secondary"}>
-                      {agent.status}
-                    </Badge>
+          <Card>
+            <div className="px-5 py-4 border-b border-slate-100">
+              <h2 className="font-semibold text-slate-900">Agent Status</h2>
+            </div>
+            <div className="divide-y divide-slate-50">
+              {agents.map((agent) => (
+                <div key={agent.id} className="flex items-center gap-3 px-5 py-3.5">
+                  <Avatar name={agent.name} size="md" status={agent.status} />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-slate-900 truncate">{agent.name}</p>
+                    <p className="text-xs text-slate-500 capitalize">{agent.role}</p>
                   </div>
-                ))}
-              </div>
-            </Card>
-          </div>
+                  <Badge variant={agent.status === "online" ? "success" : agent.status === "busy" ? "destructive" : "secondary"}>
+                    {agent.status}
+                  </Badge>
+                </div>
+              ))}
+            </div>
+          </Card>
         </div>
 
         {/* Channel Distribution */}
         <Card>
           <div className="px-5 py-4 border-b border-slate-100">
-            <h2 className="font-semibold text-slate-900">Channel Distribution Today</h2>
+            <h2 className="font-semibold text-slate-900">Channel Distribution</h2>
           </div>
           <CardBody>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-              {[
-                { channel: "line" as const, count: 89, color: "bg-green-500" },
-                { channel: "whatsapp" as const, count: 64, color: "bg-emerald-500" },
-                { channel: "facebook" as const, count: 52, color: "bg-blue-500" },
-                { channel: "voice" as const, count: 23, color: "bg-purple-500" },
-                { channel: "sms" as const, count: 20, color: "bg-orange-500" },
-              ].map((item) => {
-                const total = 248;
-                const pct = Math.round((item.count / total) * 100);
+              {channelDist.map((item) => {
+                const count = channelCounts[item.channel] ?? 0;
+                const pct = Math.round((count / total) * 100);
                 return (
                   <div key={item.channel} className="flex flex-col gap-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium text-slate-700 capitalize">{item.channel}</span>
-                      <span className="text-sm font-bold text-slate-900">{item.count}</span>
+                      <span className="text-sm font-medium text-slate-700">{item.label}</span>
+                      <span className="text-sm font-bold text-slate-900">{count}</span>
                     </div>
                     <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
-                      <div className={`h-full ${item.color} rounded-full transition-all`} style={{ width: `${pct}%` }} />
+                      <div className={`h-full ${item.color} rounded-full`} style={{ width: `${pct}%` }} />
                     </div>
                     <span className="text-xs text-slate-500">{pct}%</span>
                   </div>

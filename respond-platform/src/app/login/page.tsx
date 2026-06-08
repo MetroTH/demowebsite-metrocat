@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Zap, Eye, EyeOff } from "lucide-react";
@@ -9,13 +10,25 @@ export default function LoginPage() {
   const router = useRouter();
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [form, setForm] = useState({ email: "", password: "" });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1000));
-    router.push("/dashboard");
+    setError("");
+    const supabase = createClient();
+    const { error: authError } = await supabase.auth.signInWithPassword({
+      email: form.email,
+      password: form.password,
+    });
+    if (authError) {
+      setError(authError.message);
+      setLoading(false);
+    } else {
+      router.push("/dashboard");
+      router.refresh();
+    }
   };
 
   return (
@@ -56,6 +69,7 @@ export default function LoginPage() {
                 </button>
               </div>
             </div>
+            {error && <p className="text-sm text-red-600 bg-red-50 rounded-lg px-3 py-2">{error}</p>}
             <div className="flex items-center justify-between text-sm">
               <label className="flex items-center gap-2 text-slate-600 cursor-pointer">
                 <input type="checkbox" className="rounded" />
@@ -67,9 +81,6 @@ export default function LoginPage() {
               {loading ? "Signing in..." : "Sign In"}
             </Button>
           </form>
-          <p className="text-center text-xs text-slate-400 mt-4">
-            Demo: use any email & password
-          </p>
         </div>
       </div>
     </div>
