@@ -1,4 +1,5 @@
 import { Sidebar } from "@/components/layout/sidebar";
+import Softphone from "@/components/telephony/softphone";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -7,6 +8,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <main className="flex-1 flex flex-col overflow-hidden min-w-0">
         {children}
       </main>
+      <Softphone />
     </div>
   );
 }
