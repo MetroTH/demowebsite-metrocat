@@ -160,9 +160,11 @@ export default function ConversationsPage() {
     if (!message.trim() || !activeConvId || !currentProfileId) return;
     const content = message;
     setMessage("");
-    await supabase.from("ip_messages").insert({
-      conversation_id: activeConvId, content, sender: "agent",
-      agent_id: currentProfileId, status: "sent",
+    // Route through /api/messages so outbound dispatch to the channel fires
+    await fetch("/api/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ conversationId: activeConvId, content }),
     });
   };
 

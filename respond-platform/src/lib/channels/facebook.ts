@@ -81,11 +81,11 @@ export async function sendMessage(
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "Authorization": `Bearer ${accessToken}`,
     },
     body: JSON.stringify({
       recipient: { id: recipientId },
       message: { text },
-      access_token: accessToken,
     }),
   });
 

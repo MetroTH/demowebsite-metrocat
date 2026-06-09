@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/server";
+import { verifyTwilioSignature, formDataToRecord } from "@/lib/twilio/validate";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -7,8 +8,18 @@ export const runtime = "nodejs";
 // POST /api/twilio/voice — TwiML voice control endpoint
 // Twilio calls this URL when a call needs to be routed.
 export async function POST(request: NextRequest) {
-  // Parse form-encoded body that Twilio sends
   const formData = await request.formData();
+
+  // Verify Twilio signature before processing
+  const authToken = process.env.TWILIO_AUTH_TOKEN;
+  if (authToken) {
+    const signature = request.headers.get("x-twilio-signature") ?? "";
+    const url = request.url;
+    const params = formDataToRecord(formData);
+    if (!verifyTwilioSignature(authToken, signature, url, params)) {
+      return new NextResponse("Forbidden", { status: 403 });
+    }
+  }
   const to = formData.get("To") as string | null;
   const from = formData.get("From") as string | null;
   const callSid = formData.get("CallSid") as string | null;

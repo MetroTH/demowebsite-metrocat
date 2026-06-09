@@ -123,19 +123,21 @@ export async function insertInboundMessage(
     );
   }
 
-  // Fetch current unread_count so we can increment it
-  const { data: conv } = await supabase
-    .from("ip_conversations")
-    .select("unread_count")
-    .eq("id", conversationId)
-    .single();
+  // Atomic increment via raw SQL to avoid read-modify-write race conditions.
+  // Requires the ip_increment_conversation_unread RPC (see supabase/migrations).
+  const rpcResult = await supabase.rpc("ip_increment_conversation_unread" as never, {
+    p_conversation_id: conversationId,
+    p_last_message_id: message.id,
+  } as never);
 
-  await supabase
-    .from("ip_conversations")
-    .update({
-      unread_count: (conv?.unread_count ?? 0) + 1,
-      updated_at: new Date().toISOString(),
-      last_message_id: message.id,
-    })
-    .eq("id", conversationId);
+  if (rpcResult.error) {
+    // RPC not yet deployed — fall back to best-effort update
+    await supabase
+      .from("ip_conversations")
+      .update({
+        updated_at: new Date().toISOString(),
+        last_message_id: message.id,
+      })
+      .eq("id", conversationId);
+  }
 }

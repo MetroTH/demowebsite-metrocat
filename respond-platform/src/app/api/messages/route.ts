@@ -10,7 +10,6 @@ export const runtime = "nodejs";
 interface SendMessageBody {
   conversationId: string;
   content: string;
-  agentId?: string;
 }
 
 export async function POST(request: NextRequest) {
@@ -32,7 +31,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
-  const { conversationId, content, agentId } = body;
+  const { conversationId, content } = body;
   if (!conversationId || !content) {
     return NextResponse.json(
       { error: "conversationId and content are required" },
@@ -40,8 +39,16 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  // Resolve the agent's ip_profiles.id from the authenticated session
+  const { data: profile } = await supabase
+    .from("ip_profiles")
+    .select("id")
+    .eq("auth_user_id", user.id)
+    .single();
+  const agentProfileId = profile?.id ?? null;
+
   // Use admin client for DB writes so RLS doesn't block internal ops
-  const admin = await createAdminClient();
+  const admin = createAdminClient();
 
   // Fetch the conversation with its contact
   const { data: conversation, error: convError } = await admin
@@ -80,15 +87,13 @@ export async function POST(request: NextRequest) {
     .maybeSingle();
 
   // Insert the outbound message with status "sending"
-  const resolvedAgentId = agentId ?? user.id;
-
   const { data: message, error: insertError } = await admin
     .from("ip_messages")
     .insert({
       conversation_id: conversationId,
       content,
       sender: "agent",
-      agent_id: resolvedAgentId,
+      agent_id: agentProfileId,
       status: "sending",
       type: "text",
     })

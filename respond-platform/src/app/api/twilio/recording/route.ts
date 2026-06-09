@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/server";
+import { verifyTwilioSignature, formDataToRecord } from "@/lib/twilio/validate";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -7,6 +8,15 @@ export const runtime = "nodejs";
 // POST /api/twilio/recording — Twilio recording status callback
 export async function POST(request: NextRequest) {
   const formData = await request.formData();
+
+  // Verify Twilio signature before processing
+  const authToken = process.env.TWILIO_AUTH_TOKEN;
+  if (authToken) {
+    const signature = request.headers.get("x-twilio-signature") ?? "";
+    if (!verifyTwilioSignature(authToken, signature, request.url, formDataToRecord(formData))) {
+      return new NextResponse("Forbidden", { status: 403 });
+    }
+  }
 
   const callSid = formData.get("CallSid") as string | null;
   const recordingUrl = formData.get("RecordingUrl") as string | null;
