@@ -2,6 +2,22 @@
 
 แนวทางสำหรับ Claude Code เมื่อทำงานกับโปรเจกต์นี้
 
+## 🔗 ลิงก์สำคัญ (อ่านก่อนเริ่มงานทุกครั้ง)
+
+| สิ่งที่ต้องการ | ลิงก์ / ที่อยู่ |
+|---------------|----------------|
+| **เว็บจริง (GitHub Pages)** | https://metroth.github.io/demowebsite-metrocat/ |
+| **ดูในเครื่องตัวเอง (dev)** | http://localhost:8080/demowebsite-metrocat/ (หลังรัน `npm start`) |
+| **GitHub repository** | https://github.com/MetroTH/demowebsite-metrocat |
+| **รายการ Pull Requests** | https://github.com/MetroTH/demowebsite-metrocat/pulls |
+| **GitHub Actions (สถานะ deploy)** | https://github.com/MetroTH/demowebsite-metrocat/actions |
+| **แก้เนื้อหาผ่าน CMS** | Pages CMS dashboard (เชื่อมกับ repo นี้ — config ที่ `.pages.yml`) |
+| **โดเมนจริงของบริษัท** | https://www.metrocat.com |
+| **Facebook** | https://www.facebook.com/metrocat.th/ |
+
+> 💡 **เปิด session ใหม่แล้วจำไม่ได้ว่าทำงานที่ไหน?** ดูตารางนี้ได้เลย —
+> เว็บที่ deploy แล้วอยู่ที่ GitHub Pages, โค้ดอยู่ที่ GitHub repo ด้านบน
+
 ## ภาพรวมโปรเจกต์
 
 เว็บไซต์การตลาดสองภาษา (ไทย/อังกฤษ) ของ **Metro CAT (Metro Machinery Co., Ltd.)**
