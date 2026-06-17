@@ -60,6 +60,47 @@ layout: base.njk
   </div>
 </section>
 
+<!-- Machine lineup (interactive hologram demo) -->
+<section id="lineup" class="section">
+  <div class="container">
+    <h2 class="section-title" data-th="รุ่นเครื่องจักร" data-en="Machine Lineup">รุ่นเครื่องจักร</h2>
+    <p class="section-intro" data-th="คลิกที่รุ่นเพื่อดูภาพ — เลื่อนเมาส์ไปที่ปุ่มรุ่นเพื่อดูภาพโฮโลแกรมลอยขึ้น" data-en="Click a model to preview it — hover any model to see the holographic preview float up">คลิกที่รุ่นเพื่อดูภาพ — เลื่อนเมาส์ไปที่ปุ่มรุ่นเพื่อดูภาพโฮโลแกรมลอยขึ้น</p>
+
+    <div class="holo-lineup">
+      <!-- Stage: shows the currently selected model -->
+      <div class="holo-stage">
+        <div class="holo-platform">
+          <img class="holo-img" src="{{ '/images/excavator-holo.svg' | url }}" alt="" />
+          <span class="holo-scan" aria-hidden="true"></span>
+          <span class="holo-glow" aria-hidden="true"></span>
+        </div>
+        <div class="holo-caption">
+          <span class="holo-model">301.7 CR</span>
+          <span class="holo-sub" data-th="รถขุดตีนตะขาบ Caterpillar" data-en="Caterpillar Hydraulic Excavator">รถขุดตีนตะขาบ Caterpillar</span>
+        </div>
+      </div>
+
+      <!-- Category + model badges -->
+      <div class="holo-models">
+        <h3 data-th="รถขุด" data-en="Excavators">รถขุด</h3>
+        <p class="holo-models-desc" data-th="รถขุดตีนตะขาบ Caterpillar ครบทุกขนาด ตั้งแต่รถขุดมินิงานแคบ ไปจนถึงรถขุดขนาดใหญ่สำหรับงานโครงการหนัก" data-en="Caterpillar tracked excavators in every size — from compact machines for tight sites to large excavators for heavy projects.">รถขุดตีนตะขาบ Caterpillar ครบทุกขนาด ตั้งแต่รถขุดมินิงานแคบ ไปจนถึงรถขุดขนาดใหญ่สำหรับงานโครงการหนัก</p>
+        <div class="model-badges" role="tablist">
+          {%- set excavators = ["301.7 CR","305 CR","308 CR","310","313","315","320","323","326","330","336","340","349","352","365","390","395"] %}
+          {%- for m in excavators %}
+          <button type="button" class="model-badge{{ ' is-active' if loop.first }}" data-model="{{ m }}" data-img="{{ '/images/excavator-holo.svg' | url }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">
+            <span class="model-badge-label">{{ m }}</span>
+            <span class="model-badge-holo" aria-hidden="true">
+              <img src="{{ '/images/excavator-holo.svg' | url }}" alt="" />
+            </span>
+          </button>
+          {%- endfor %}
+        </div>
+        <a href="#contact" class="btn btn-primary" data-th="ขอใบเสนอราคา" data-en="Request a Quote">ขอใบเสนอราคา</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Promo banner -->
 <section class="promo-banner{% if not th.promo_banner.image %} no-image{% endif %}"{% if th.promo_banner.image %} style="background-image:url('{{ th.promo_banner.image }}')"{% endif %}>
   <div class="container promo-banner-inner">
@@ -218,4 +259,34 @@ layout: base.njk
     {%- endfor %}
   ]
 }
+</script>
+
+<!-- Machine lineup: click a badge to swap the stage model -->
+<script>
+  (function () {
+    var stage = document.querySelector(".holo-stage");
+    if (!stage) return;
+    var stageImg = stage.querySelector(".holo-img");
+    var stageModel = stage.querySelector(".holo-model");
+    var badges = document.querySelectorAll(".holo-models .model-badge");
+
+    badges.forEach(function (badge) {
+      badge.addEventListener("click", function () {
+        badges.forEach(function (b) {
+          b.classList.remove("is-active");
+          b.setAttribute("aria-pressed", "false");
+        });
+        badge.classList.add("is-active");
+        badge.setAttribute("aria-pressed", "true");
+
+        stageImg.src = badge.getAttribute("data-img");
+        stageModel.textContent = badge.getAttribute("data-model");
+
+        // Re-trigger the "materialise" animation
+        stage.classList.remove("is-swapping");
+        void stage.offsetWidth;
+        stage.classList.add("is-swapping");
+      });
+    });
+  })();
 </script>

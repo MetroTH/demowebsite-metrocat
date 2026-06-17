@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" role="img" aria-label="ภาพจำลองรถขุด CAT (placeholder)">
+  <!-- Placeholder excavator silhouette. Replace with a real transparent PNG per model later. -->
+  <g fill="#FFCD11" stroke="#1A1A1A" stroke-width="3" stroke-linejoin="round">
+    <!-- Track / undercarriage -->
+    <rect x="40" y="168" width="170" height="34" rx="17"/>
+    <circle cx="60" cy="185" r="10" fill="#1A1A1A" stroke="none"/>
+    <circle cx="190" cy="185" r="10" fill="#1A1A1A" stroke="none"/>
+    <circle cx="105" cy="190" r="6" fill="#1A1A1A" stroke="none"/>
+    <circle cx="145" cy="190" r="6" fill="#1A1A1A" stroke="none"/>
+    <!-- House / cab body -->
+    <rect x="70" y="110" width="120" height="58" rx="10"/>
+    <!-- Cab window -->
+    <rect x="80" y="120" width="42" height="34" rx="5" fill="#1A1A1A" stroke="none"/>
+    <!-- Counterweight -->
+    <rect x="182" y="118" width="22" height="46" rx="6"/>
+    <!-- Boom -->
+    <path d="M150 124 L214 78 L236 96 L176 142 Z"/>
+    <!-- Stick -->
+    <path d="M214 78 L246 70 L256 92 L228 100 Z"/>
+    <!-- Bucket -->
+    <path d="M246 70 q26 -4 30 22 q-2 18 -22 18 l-6 -32 z"/>
+  </g>
+</svg>
