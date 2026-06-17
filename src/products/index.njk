@@ -1,0 +1,49 @@
+---
+layout: base.njk
+permalink: /products/index.html
+pageTitle: "สินค้า Caterpillar | Metro CAT"
+pageDescription: "ผลิตภัณฑ์ Caterpillar ครบไลน์จาก Metro CAT ตัวแทนอย่างเป็นทางการในไทย"
+---
+
+<section class="page-hero">
+  <div class="container">
+    <h1 data-th="{{ th.products.title }}" data-en="{{ en.products.title }}">{{ th.products.title }}</h1>
+    <p data-th="{{ th.products.intro }}" data-en="{{ en.products.intro }}">{{ th.products.intro }}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="products-overview-grid">
+      {%- for cat in productCatalog %}
+      <a href="{{ ('/products/' + cat.slug + '/') | url }}" class="product-cat-card">
+        <span class="product-cat-icon">{{ cat.th.icon }}</span>
+        <div class="product-cat-body">
+          <h2 class="product-cat-title"
+            data-th="{{ cat.th.title }}"
+            data-en="{{ cat.en.title }}">{{ cat.th.title }}</h2>
+          <p data-th="{{ cat.th.desc }}"
+            data-en="{{ cat.en.desc }}">{{ cat.th.desc }}</p>
+          <span class="product-cat-count">{{ cat.subcategories | length }} หมวดย่อย</span>
+        </div>
+        <span class="product-cat-arrow">→</span>
+      </a>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section section-cta">
+  <div class="container narrow" style="text-align:center">
+    <h2 class="section-title"
+      data-th="{{ th.contact.title }}"
+      data-en="{{ en.contact.title }}">{{ th.contact.title }}</h2>
+    <p class="section-intro"
+      data-th="{{ th.contact.intro }}"
+      data-en="{{ en.contact.intro }}">{{ th.contact.intro }}</p>
+    <a href="{{ '/' | url }}#contact" class="btn btn-primary btn-lg"
+      data-th="{{ th.contact.cta }}"
+      data-en="{{ en.contact.cta }}">{{ th.contact.cta }}</a>
+  </div>
+</section>

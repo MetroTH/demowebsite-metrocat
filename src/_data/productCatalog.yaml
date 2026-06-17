@@ -1,0 +1,278 @@
+# ========================================================
+#  Metro CAT — Product Taxonomy (TH + EN)
+#  แก้ไขผ่าน Pages CMS หมวด "หมวดหมู่สินค้า" หรือแก้ไฟล์นี้โดยตรง
+# ========================================================
+
+- slug: construction
+  th:
+    title: "เครื่องจักรก่อสร้าง"
+    icon: "🏗️"
+    desc: "เครื่องจักร Caterpillar ครบไลน์สำหรับงานก่อสร้าง ขุดดิน เคลื่อนดิน และงานโครงสร้างพื้นฐานทุกขนาด"
+    image: ""
+  en:
+    title: "Construction Equipment"
+    icon: "🏗️"
+    desc: "A complete line of Caterpillar machines for construction, excavation, earthmoving and infrastructure projects of any scale."
+    image: ""
+  subcategories:
+    - slug: excavators
+      th:
+        title: "รถขุด"
+        desc: "รถขุดตีนตะขาบ Caterpillar ครบทุกขนาด ตั้งแต่รถขุดมินิงานแคบ ไปจนถึงรถขุดขนาดใหญ่สำหรับงานโครงการหนัก"
+        models: ["301.7 CR", "305 CR", "308 CR", "310", "313", "315", "320", "323", "326", "330", "336", "340", "349", "352", "365", "390", "395"]
+        image: ""
+      en:
+        title: "Excavators"
+        desc: "Caterpillar track excavators from compact mini models for tight spaces to large units for heavy-duty project work."
+        models: ["301.7 CR", "305 CR", "308 CR", "310", "313", "315", "320", "323", "326", "330", "336", "340", "349", "352", "365", "390", "395"]
+        image: ""
+    - slug: track-type-tractors
+      th:
+        title: "รถโดเซอร์"
+        desc: "รถโดเซอร์ตีนตะขาบ Caterpillar สำหรับงานดัน ปรับระดับ และเคลื่อนดินขนาดใหญ่ทุกสภาพพื้นที่"
+        models: ["D4", "D5", "D6", "D7", "D8", "D9", "D10", "D11"]
+        image: ""
+      en:
+        title: "Track-Type Tractors (Dozers)"
+        desc: "Caterpillar track-type tractors for pushing, grading and large-scale earthmoving in all terrain conditions."
+        models: ["D4", "D5", "D6", "D7", "D8", "D9", "D10", "D11"]
+        image: ""
+    - slug: wheel-loaders
+      th:
+        title: "รถตักล้อยาง"
+        desc: "รถตักล้อยาง Caterpillar ที่ผสมผสานกำลังและความคล่องตัว เหมาะสำหรับงานตัก ขน และยกวัสดุทุกประเภท"
+        models: ["910", "914", "918", "920", "930", "938", "950", "960", "966", "972", "980", "988"]
+        image: ""
+      en:
+        title: "Wheel Loaders"
+        desc: "Caterpillar wheel loaders combining power and agility for loading, hauling and lifting all material types."
+        models: ["910", "914", "918", "920", "930", "938", "950", "960", "966", "972", "980", "988"]
+        image: ""
+    - slug: motor-graders
+      th:
+        title: "รถเกลี่ยดิน"
+        desc: "รถเกลี่ยดิน Caterpillar ความแม่นยำสูงสำหรับงานปรับระดับพื้นถนน ลานจอด และพื้นที่ก่อสร้าง"
+        models: ["12M3", "14M3", "16M3", "18M3", "24M"]
+        image: ""
+      en:
+        title: "Motor Graders"
+        desc: "High-precision Caterpillar graders for leveling roads, yards and construction sites with accuracy."
+        models: ["12M3", "14M3", "16M3", "18M3", "24M"]
+        image: ""
+    - slug: compactors
+      th:
+        title: "รถบดอัด"
+        desc: "รถบดอัดดินและยางมะตอย Caterpillar สำหรับงานทำถนน ลานจอดรถ และงานอัดแน่นดิน"
+        models: ["CS11 GC", "CS34", "CS44", "CS54", "CS64", "CB2.5", "CB4.0", "CB8.0", "CB10"]
+        image: ""
+      en:
+        title: "Compactors"
+        desc: "Caterpillar soil and asphalt compactors for road building, parking lots and soil densification work."
+        models: ["CS11 GC", "CS34", "CS44", "CS54", "CS64", "CB2.5", "CB4.0", "CB8.0", "CB10"]
+        image: ""
+    - slug: articulated-trucks
+      th:
+        title: "รถขนดินข้อพับ"
+        desc: "รถขนดินข้อพับ Caterpillar สำหรับขนย้ายวัสดุในพื้นที่แคบ ลาดชัน หรือสภาพพื้นที่ยาก"
+        models: ["725", "730", "730 EJ", "735", "740", "740 EJ", "745"]
+        image: ""
+      en:
+        title: "Articulated Trucks"
+        desc: "Caterpillar articulated trucks for hauling material in confined, steep or difficult site conditions."
+        models: ["725", "730", "730 EJ", "735", "740", "740 EJ", "745"]
+        image: ""
+    - slug: backhoe-loaders
+      th:
+        title: "รถแบ็คโฮ"
+        desc: "รถแบ็คโฮ Caterpillar อเนกประสงค์ ใช้ได้ทั้งขุดและตักในเครื่องเดียว เหมาะสำหรับงานก่อสร้างและสาธารณูปโภค"
+        models: ["416F2", "420F2", "420XE", "430F2", "432F2", "444F2"]
+        image: ""
+      en:
+        title: "Backhoe Loaders"
+        desc: "Versatile Caterpillar backhoe loaders offering both digging and loading in one machine for construction and utility work."
+        models: ["416F2", "420F2", "420XE", "430F2", "432F2", "444F2"]
+        image: ""
+
+- slug: mining
+  th:
+    title: "เครื่องจักรเหมืองแร่"
+    icon: "⛏️"
+    desc: "เครื่องจักรหนักระดับโลกสำหรับงานเหมืองแร่ เหมืองหิน และงานขุดขนาดใหญ่ที่ต้องการความน่าเชื่อถือสูงสุด"
+    image: ""
+  en:
+    title: "Mining Equipment"
+    icon: "⛏️"
+    desc: "World-class heavy equipment for mining, quarrying and large-scale excavation demanding the highest reliability."
+    image: ""
+  subcategories:
+    - slug: mining-trucks
+      th:
+        title: "รถบรรทุกเหมือง"
+        desc: "รถบรรทุกนอกถนน Caterpillar ความจุสูง ออกแบบมาเพื่อลดต้นทุนต่อตันและเพิ่มปริมาณงานเหมือง"
+        models: ["773G", "775G", "777G", "785D", "789D", "793D", "793F", "793F AC", "797F"]
+        image: ""
+      en:
+        title: "Off-Highway Trucks"
+        desc: "High-capacity Caterpillar off-highway trucks designed to reduce cost-per-ton and maximize mine productivity."
+        models: ["773G", "775G", "777G", "785D", "789D", "793D", "793F", "793F AC", "797F"]
+        image: ""
+    - slug: mining-excavators
+      th:
+        title: "รถขุดเหมืองขนาดใหญ่"
+        desc: "รถขุดไฮดรอลิกขนาดใหญ่ Caterpillar สำหรับงานโหลดรถบรรทุกและงานขุดในเหมืองผิวดิน"
+        models: ["6018", "6020B", "6030", "6040", "6050", "6060", "6090 FS"]
+        image: ""
+      en:
+        title: "Large Mining Excavators"
+        desc: "Caterpillar large hydraulic excavators for truck loading and digging operations in surface mines."
+        models: ["6018", "6020B", "6030", "6040", "6050", "6060", "6090 FS"]
+        image: ""
+    - slug: underground-mining
+      th:
+        title: "เครื่องจักรเหมืองใต้ดิน"
+        desc: "อุปกรณ์เหมืองใต้ดิน Caterpillar ครบวงจร ตั้งแต่รถขุด รถโหลด ไปจนถึงรถขนในอุโมงค์"
+        models: ["R1300G", "R1600H", "R2900G", "AD30", "AD45", "AD55B", "AD60"]
+        image: ""
+      en:
+        title: "Underground Mining Equipment"
+        desc: "Complete Caterpillar underground equipment from loaders and excavators to underground haul trucks."
+        models: ["R1300G", "R1600H", "R2900G", "AD30", "AD45", "AD55B", "AD60"]
+        image: ""
+
+- slug: power-systems
+  th:
+    title: "ระบบพลังงาน"
+    icon: "⚡"
+    desc: "เครื่องยนต์และเครื่องกำเนิดไฟฟ้า Caterpillar สำหรับงานอุตสาหกรรม ทางทะเล ปิโตรเลียม และระบบไฟฟ้าสำรอง"
+    image: ""
+  en:
+    title: "Power Systems"
+    icon: "⚡"
+    desc: "Caterpillar engines and generator sets for industrial, marine, petroleum and standby power applications."
+    image: ""
+  subcategories:
+    - slug: diesel-engines
+      th:
+        title: "เครื่องยนต์ดีเซล"
+        desc: "เครื่องยนต์ดีเซลอุตสาหกรรม Caterpillar หลากหลายขนาด ตั้งแต่งานเบาไปจนถึงงานหนักระดับโรงงาน"
+        models: ["C1.1", "C2.2", "C3.3B", "C4.4", "C6.6", "C7.1", "C9.3", "C13", "C15", "C18", "C27", "C32", "C175"]
+        image: ""
+      en:
+        title: "Diesel Engines"
+        desc: "Caterpillar industrial diesel engines from light-duty to heavy plant applications."
+        models: ["C1.1", "C2.2", "C3.3B", "C4.4", "C6.6", "C7.1", "C9.3", "C13", "C15", "C18", "C27", "C32", "C175"]
+        image: ""
+    - slug: gas-engines
+      th:
+        title: "เครื่องยนต์แก๊ส"
+        desc: "เครื่องยนต์แก๊สธรรมชาติและก๊าซอุตสาหกรรม Caterpillar สำหรับการผลิตไฟฟ้าและงาน CHP"
+        models: ["CG132-8", "CG132-12", "CG132-16", "CG170-12", "CG170-16", "CG260-12", "CG260-16"]
+        image: ""
+      en:
+        title: "Gas Engines"
+        desc: "Caterpillar natural and industrial gas engines for power generation and CHP applications."
+        models: ["CG132-8", "CG132-12", "CG132-16", "CG170-12", "CG170-16", "CG260-12", "CG260-16"]
+        image: ""
+    - slug: generator-sets
+      th:
+        title: "เครื่องกำเนิดไฟฟ้า"
+        desc: "ชุดเครื่องกำเนิดไฟฟ้าดีเซลและแก๊ส Caterpillar ตั้งแต่ 8 kVA ถึง 16,100 kVA สำหรับทุกความต้องการ"
+        models: ["8–22 kVA", "25–60 kVA", "65–150 kVA", "165–350 kVA", "400–650 kVA", "700–1,250 kVA", "1,375–3,500 kVA", "ถึง 16,100 kVA"]
+        image: ""
+      en:
+        title: "Generator Sets"
+        desc: "Caterpillar diesel and gas generator sets from 8 kVA to 16,100 kVA for every power requirement."
+        models: ["8–22 kVA", "25–60 kVA", "65–150 kVA", "165–350 kVA", "400–650 kVA", "700–1,250 kVA", "1,375–3,500 kVA", "Up to 16,100 kVA"]
+        image: ""
+    - slug: marine-engines
+      th:
+        title: "เครื่องยนต์เรือ"
+        desc: "เครื่องยนต์ทางทะเล Caterpillar สำหรับเรือประมง เรือขนส่ง เรือยอร์ช และเรืออุตสาหกรรม"
+        models: ["C4.4", "C7.1", "C12.9", "C18", "C32", "3512E", "3516E"]
+        image: ""
+      en:
+        title: "Marine Engines"
+        desc: "Caterpillar marine engines for fishing vessels, transport ships, yachts and industrial marine craft."
+        models: ["C4.4", "C7.1", "C12.9", "C18", "C32", "3512E", "3516E"]
+        image: ""
+
+- slug: material-handling
+  th:
+    title: "การขนถ่ายวัสดุ"
+    icon: "🏭"
+    desc: "โซลูชันการขนถ่ายวัสดุ Caterpillar สำหรับท่าเรือ คลังสินค้า และโรงงานอุตสาหกรรม"
+    image: ""
+  en:
+    title: "Material Handling"
+    icon: "🏭"
+    desc: "Caterpillar material handling solutions for ports, warehouses and industrial facilities."
+    image: ""
+  subcategories:
+    - slug: lift-trucks
+      th:
+        title: "รถยกโฟล์คลิฟท์"
+        desc: "รถยก Caterpillar ระบบไฟฟ้าและเครื่องยนต์สันดาปภายใน ครอบคลุมน้ำหนักยก 1–16 ตัน"
+        models: ["EP16-20CN", "GP15N–GP35N", "DP40N–DP80N", "GP40K–GP70K", "DP100N–DP160N"]
+        image: ""
+      en:
+        title: "Lift Trucks (Forklifts)"
+        desc: "Caterpillar electric and internal-combustion forklifts covering 1–16-tonne lift capacities."
+        models: ["EP16-20CN", "GP15N–GP35N", "DP40N–DP80N", "GP40K–GP70K", "DP100N–DP160N"]
+        image: ""
+    - slug: port-equipment
+      th:
+        title: "อุปกรณ์ท่าเรือ"
+        desc: "รถยกตู้คอนเทนเนอร์และอุปกรณ์ท่าเรือ Caterpillar สำหรับงานขนถ่ายตู้สินค้าขนาดใหญ่"
+        models: ["Reach Stacker", "Empty Container Handler", "Full Container Handler", "Terminal Tractor"]
+        image: ""
+      en:
+        title: "Port Equipment"
+        desc: "Caterpillar container handling and port equipment for large-scale cargo terminal operations."
+        models: ["Reach Stacker", "Empty Container Handler", "Full Container Handler", "Terminal Tractor"]
+        image: ""
+
+- slug: parts
+  th:
+    title: "อะไหล่แท้ CAT"
+    icon: "🔧"
+    desc: "อะไหล่และชิ้นส่วน Caterpillar ของแท้กว่า 25,000 รายการ พร้อมสต็อกและจัดส่งทั่วประเทศ"
+    image: ""
+  en:
+    title: "Genuine CAT Parts"
+    icon: "🔧"
+    desc: "Over 25,000 genuine Caterpillar parts and components, in stock and shipped nationwide."
+    image: ""
+  subcategories:
+    - slug: engine-parts
+      th:
+        title: "อะไหล่เครื่องยนต์"
+        desc: "ฟิลเตอร์ ปะเก็น ชิ้นส่วนเครื่องยนต์ Caterpillar ของแท้สำหรับการบำรุงรักษาและซ่อมแซม"
+        models: []
+        image: ""
+      en:
+        title: "Engine Parts"
+        desc: "Genuine Caterpillar filters, gaskets and engine components for maintenance and repair."
+        models: []
+        image: ""
+    - slug: drivetrain-hydraulics
+      th:
+        title: "ระบบส่งกำลังและไฮดรอลิก"
+        desc: "ชิ้นส่วนระบบส่งกำลัง เกียร์ ไฮดรอลิก และชิ้นส่วนตีนตะขาบ Caterpillar ของแท้"
+        models: []
+        image: ""
+      en:
+        title: "Drivetrain & Hydraulics"
+        desc: "Genuine Caterpillar transmission, gearbox, hydraulic and undercarriage components."
+        models: []
+        image: ""
+    - slug: ground-engaging
+      th:
+        title: "อุปกรณ์สัมผัสพื้น"
+        desc: "ฟัน บัค ขอบสึก และอุปกรณ์สัมผัสพื้น GET ของแท้จาก Caterpillar"
+        models: []
+        image: ""
+      en:
+        title: "Ground Engaging Tools (GET)"
+        desc: "Genuine Caterpillar teeth, edges, cutting edges and GET for maximum protection and productivity."
+        models: []
+        image: ""

@@ -15,7 +15,7 @@
 <header class="site-header">
   <div class="container header-inner">
     <a href="{{ '/' | url }}" class="brand" aria-label="Metro CAT">
-      {% if site.logo %}<img src="{{ site.logo }}" alt="Metro CAT" class="brand-logo" />
+      {% if site.logo %}<img src="{{ site.logo | url }}" alt="Metro CAT" class="brand-logo" />
       {% else %}<span class="brand-mark">METRO</span><span class="brand-cat">CAT</span>{% endif %}
     </a>
 
@@ -26,7 +26,19 @@
     <nav class="main-nav" id="primary-nav" aria-label="เมนูหลัก">
       <ul>
         <li><a href="{{ '/' | url }}" data-th="{{ th.nav.home }}" data-en="{{ en.nav.home }}">{{ th.nav.home }}</a></li>
-        <li><a href="{{ '/' | url }}#products" data-th="{{ th.nav.products }}" data-en="{{ en.nav.products }}">{{ th.nav.products }}</a></li>
+        <li class="has-dropdown">
+          <a href="{{ '/products/' | url }}" data-th="{{ th.nav.products }}" data-en="{{ en.nav.products }}">{{ th.nav.products }} <span class="dropdown-arrow" aria-hidden="true">▾</span></a>
+          <ul class="dropdown-menu" aria-label="หมวดหมู่สินค้า">
+            {%- for cat in productCatalog %}
+            <li>
+              <a href="{{ ('/products/' + cat.slug + '/') | url }}">
+                <span class="dropdown-icon">{{ cat.th.icon }}</span>
+                <span class="dropdown-th" data-th="{{ cat.th.title }}" data-en="{{ cat.en.title }}">{{ cat.th.title }}</span>
+              </a>
+            </li>
+            {%- endfor %}
+          </ul>
+        </li>
         <li><a href="{{ '/' | url }}#services" data-th="{{ th.nav.services }}" data-en="{{ en.nav.services }}">{{ th.nav.services }}</a></li>
         <li><a href="{{ '/blog/' | url }}" data-th="{{ th.nav.blog }}" data-en="{{ en.nav.blog }}">{{ th.nav.blog }}</a></li>
         <li><a href="{{ '/promotions/' | url }}" data-th="{{ th.nav.promotions }}" data-en="{{ en.nav.promotions }}">{{ th.nav.promotions }}</a></li>
