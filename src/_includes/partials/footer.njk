@@ -1,7 +1,8 @@
 <footer class="site-footer">
   <div class="container footer-inner">
     <div class="footer-col footer-brand">
-      <span class="brand-mark">METRO</span><span class="brand-cat">CAT</span>
+      {% if site.logo %}<img src="{{ site.logo | url }}" alt="Metro CAT" class="footer-logo" />
+      {% else %}<span class="brand-mark">METRO</span><span class="brand-cat">CAT</span>{% endif %}
       <p data-th="{{ th.footer.tagline }}" data-en="{{ en.footer.tagline }}">{{ th.footer.tagline }}</p>
       <a href="{{ site.facebook }}" rel="noopener" class="footer-social">Facebook: Metro CAT</a>
     </div>

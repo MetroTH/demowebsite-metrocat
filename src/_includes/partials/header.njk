@@ -15,7 +15,7 @@
 <header class="site-header">
   <div class="container header-inner">
     <a href="{{ '/' | url }}" class="brand" aria-label="Metro CAT">
-      {% if site.logo %}<img src="{{ site.logo }}" alt="Metro CAT" class="brand-logo" />
+      {% if site.logo %}<img src="{{ site.logo | url }}" alt="Metro CAT" class="brand-logo" />
       {% else %}<span class="brand-mark">METRO</span><span class="brand-cat">CAT</span>{% endif %}
     </a>
 
