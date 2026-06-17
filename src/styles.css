@@ -314,6 +314,7 @@ img { max-width: 100%; display: block; }
 .site-footer { background: #141414; color: rgba(255, 255, 255, 0.8); }
 .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1.3fr; gap: 36px; padding-top: 56px; padding-bottom: 32px; }
 .footer-brand .brand-mark { color: var(--white); }
+.footer-logo { height: 48px; width: auto; }
 .footer-brand p { margin-top: 14px; font-size: 0.95rem; }
 .footer-social { display: inline-block; margin-top: 8px; color: var(--cat-yellow); }
 .footer-col h4 { color: var(--white); text-transform: uppercase; font-size: 1rem; margin-bottom: 16px; }
