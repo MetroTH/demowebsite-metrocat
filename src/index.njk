@@ -92,8 +92,10 @@ layout: base.njk
           {%- set badgeImg = '/images/excavator-holo.svg' %}
           {%- if media and media.spin and media.spin.poster %}{% set badgeImg = media.spin.poster %}{% endif %}
           {%- if media and media.image %}{% set badgeImg = media.image %}{% endif %}
+          {%- if media and media.model3d and media.model3d.poster %}{% set badgeImg = media.model3d.poster %}{% endif %}
           <button type="button" class="model-badge{{ ' is-active' if loop.first }}" data-model="{{ m }}"
-            {%- if media and media.spin %} data-spin-dir="{{ media.spin.dir | url }}" data-spin-count="{{ media.spin.count }}" data-spin-ext="{{ media.spin.ext or 'jpg' }}" data-spin-pad="{{ media.spin.pad if media.spin.pad is defined else 2 }}" data-spin-start="{{ media.spin.start or 1 }}"{% endif %} data-img="{{ badgeImg | url }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">
+            {%- if media and media.model3d %} data-glb="{{ media.model3d.src | url }}"{% if media.model3d.usdz %} data-usdz="{{ media.model3d.usdz | url }}"{% endif %}{% if media.model3d.ar %} data-ar="1"{% endif %}
+            {%- elif media and media.spin %} data-spin-dir="{{ media.spin.dir | url }}" data-spin-count="{{ media.spin.count }}" data-spin-ext="{{ media.spin.ext or 'jpg' }}" data-spin-pad="{{ media.spin.pad if media.spin.pad is defined else 2 }}" data-spin-start="{{ media.spin.start or 1 }}"{% endif %} data-img="{{ badgeImg | url }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">
             <span class="model-badge-label">{{ m }}</span>
             <span class="model-badge-holo" aria-hidden="true">
               <img src="{{ badgeImg | url }}" alt="" />
@@ -275,9 +277,23 @@ layout: base.njk
     var stageImg = stage.querySelector(".holo-img");
     var stageModel = stage.querySelector(".holo-model");
     var hint = stage.querySelector(".holo-spin-hint");
+    var platform = stage.querySelector(".holo-platform");
     var badges = document.querySelectorAll(".holo-models .model-badge");
 
-    var spin = null; // teardown handle for the active spin viewer
+    var spin = null;      // teardown handle for the active spin viewer
+    var selToken = 0;     // guards async <model-viewer> loads against fast clicks
+    var MV_SRC = "https://cdn.jsdelivr.net/npm/@google/model-viewer@4/dist/model-viewer.min.js";
+
+    // Lazy-load the <model-viewer> library once, on first 3D model
+    function ensureModelViewer(cb) {
+      if (window.customElements && customElements.get("model-viewer")) return cb();
+      var existing = document.getElementById("mv-lib");
+      if (existing) { existing.addEventListener("load", cb); return; }
+      var s = document.createElement("script");
+      s.type = "module"; s.id = "mv-lib"; s.src = MV_SRC;
+      s.addEventListener("load", cb);
+      document.head.appendChild(s);
+    }
 
     function pad(n, len) {
       n = String(n);
@@ -309,6 +325,34 @@ layout: base.njk
       if (spin) { spin(); spin = null; }
       stage.classList.remove("is-spin", "is-dragging");
       if (hint) hint.hidden = true;
+    }
+
+    function teardown3d() {
+      var mv = platform.querySelector(".holo-mv");
+      if (mv) mv.remove();
+      stage.classList.remove("is-3d");
+    }
+
+    function setup3d(badge, token) {
+      var src = badge.getAttribute("data-glb");
+      ensureModelViewer(function () {
+        if (token !== selToken) return; // a newer selection won the race
+        teardown3d();
+        var mv = document.createElement("model-viewer");
+        mv.className = "holo-mv";
+        mv.setAttribute("src", src);
+        mv.setAttribute("poster", badge.getAttribute("data-img"));
+        mv.setAttribute("alt", badge.getAttribute("data-model"));
+        mv.setAttribute("camera-controls", "");
+        mv.setAttribute("auto-rotate", "");
+        mv.setAttribute("touch-action", "pan-y");
+        mv.setAttribute("shadow-intensity", "1");
+        mv.setAttribute("exposure", "1");
+        if (badge.getAttribute("data-usdz")) mv.setAttribute("ios-src", badge.getAttribute("data-usdz"));
+        if (badge.getAttribute("data-ar") === "1") { mv.setAttribute("ar", ""); }
+        platform.appendChild(mv);
+        stage.classList.add("is-3d");
+      });
     }
 
     function setupSpin(frames) {
@@ -363,12 +407,19 @@ layout: base.njk
       badge.classList.add("is-active");
       badge.setAttribute("aria-pressed", "true");
 
+      selToken++;
       teardownSpin();
+      teardown3d();
       stageModel.textContent = badge.getAttribute("data-model");
 
-      var frames = buildFrames(badge);
-      if (frames) { setupSpin(frames); }
-      else { stageImg.src = badge.getAttribute("data-img"); }
+      if (badge.getAttribute("data-glb")) {
+        setup3d(badge, selToken);
+        stageImg.src = badge.getAttribute("data-img"); // poster shown until lib loads
+      } else {
+        var frames = buildFrames(badge);
+        if (frames) { setupSpin(frames); }
+        else { stageImg.src = badge.getAttribute("data-img"); }
+      }
 
       // Re-trigger the "materialise" animation
       stage.classList.remove("is-swapping");
