@@ -64,16 +64,17 @@ layout: base.njk
 <section id="lineup" class="section">
   <div class="container">
     <h2 class="section-title" data-th="รุ่นเครื่องจักร" data-en="Machine Lineup">รุ่นเครื่องจักร</h2>
-    <p class="section-intro" data-th="คลิกที่รุ่นเพื่อดูภาพ — เลื่อนเมาส์ไปที่ปุ่มรุ่นเพื่อดูภาพโฮโลแกรมลอยขึ้น" data-en="Click a model to preview it — hover any model to see the holographic preview float up">คลิกที่รุ่นเพื่อดูภาพ — เลื่อนเมาส์ไปที่ปุ่มรุ่นเพื่อดูภาพโฮโลแกรมลอยขึ้น</p>
+    <p class="section-intro" data-th="คลิกที่รุ่นเพื่อดูภาพ — รุ่นที่มีภาพ 360° ลากเพื่อหมุนดูรอบคันได้" data-en="Click a model to preview it — drag to rotate models that have a 360° image set">คลิกที่รุ่นเพื่อดูภาพ — รุ่นที่มีภาพ 360° ลากเพื่อหมุนดูรอบคันได้</p>
 
     <div class="holo-lineup">
       <!-- Stage: shows the currently selected model -->
       <div class="holo-stage">
         <div class="holo-platform">
-          <img class="holo-img" src="{{ '/images/excavator-holo.svg' | url }}" alt="" />
+          <img class="holo-img" src="{{ '/images/excavator-holo.svg' | url }}" alt="" draggable="false" />
           <span class="holo-scan" aria-hidden="true"></span>
           <span class="holo-glow" aria-hidden="true"></span>
         </div>
+        <span class="holo-spin-hint" aria-hidden="true" hidden data-th="ลากเพื่อหมุน 360°" data-en="Drag to rotate 360°">ลากเพื่อหมุน 360°</span>
         <div class="holo-caption">
           <span class="holo-model">301.7 CR</span>
           <span class="holo-sub" data-th="รถขุดตีนตะขาบ Caterpillar" data-en="Caterpillar Hydraulic Excavator">รถขุดตีนตะขาบ Caterpillar</span>
@@ -87,10 +88,17 @@ layout: base.njk
         <div class="model-badges" role="tablist">
           {%- set excavators = ["301.7 CR","305 CR","308 CR","310","313","315","320","323","326","330","336","340","349","352","365","390","395"] %}
           {%- for m in excavators %}
-          <button type="button" class="model-badge{{ ' is-active' if loop.first }}" data-model="{{ m }}" data-img="{{ '/images/excavator-holo.svg' | url }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">
+          {%- set media = modelMedia[m] %}
+          {%- set badgeImg = '/images/excavator-holo.svg' %}
+          {%- if media and media.spin and media.spin.poster %}{% set badgeImg = media.spin.poster %}{% endif %}
+          {%- if media and media.image %}{% set badgeImg = media.image %}{% endif %}
+          {%- if media and media.model3d and media.model3d.poster %}{% set badgeImg = media.model3d.poster %}{% endif %}
+          <button type="button" class="model-badge{{ ' is-active' if loop.first }}" data-model="{{ m }}"
+            {%- if media and media.model3d %} data-glb="{{ media.model3d.src | url }}"{% if media.model3d.usdz %} data-usdz="{{ media.model3d.usdz | url }}"{% endif %}{% if media.model3d.ar %} data-ar="1"{% endif %}
+            {%- elif media and media.spin %} data-spin-dir="{{ media.spin.dir | url }}" data-spin-count="{{ media.spin.count }}" data-spin-ext="{{ media.spin.ext or 'jpg' }}" data-spin-pad="{{ media.spin.pad if media.spin.pad is defined else 2 }}" data-spin-start="{{ media.spin.start or 1 }}"{% endif %} data-img="{{ badgeImg | url }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">
             <span class="model-badge-label">{{ m }}</span>
             <span class="model-badge-holo" aria-hidden="true">
-              <img src="{{ '/images/excavator-holo.svg' | url }}" alt="" />
+              <img src="{{ badgeImg | url }}" alt="" />
             </span>
           </button>
           {%- endfor %}
@@ -261,32 +269,166 @@ layout: base.njk
 }
 </script>
 
-<!-- Machine lineup: click a badge to swap the stage model -->
+<!-- Machine lineup: click a badge to swap the stage model; drag to rotate 360° sets -->
 <script>
   (function () {
     var stage = document.querySelector(".holo-stage");
     if (!stage) return;
     var stageImg = stage.querySelector(".holo-img");
     var stageModel = stage.querySelector(".holo-model");
+    var hint = stage.querySelector(".holo-spin-hint");
+    var platform = stage.querySelector(".holo-platform");
     var badges = document.querySelectorAll(".holo-models .model-badge");
 
-    badges.forEach(function (badge) {
-      badge.addEventListener("click", function () {
-        badges.forEach(function (b) {
-          b.classList.remove("is-active");
-          b.setAttribute("aria-pressed", "false");
-        });
-        badge.classList.add("is-active");
-        badge.setAttribute("aria-pressed", "true");
+    var spin = null;      // teardown handle for the active spin viewer
+    var selToken = 0;     // guards async <model-viewer> loads against fast clicks
+    var MV_SRC = "https://cdn.jsdelivr.net/npm/@google/model-viewer@4/dist/model-viewer.min.js";
 
-        stageImg.src = badge.getAttribute("data-img");
-        stageModel.textContent = badge.getAttribute("data-model");
+    // Lazy-load the <model-viewer> library once, on first 3D model
+    function ensureModelViewer(cb) {
+      if (window.customElements && customElements.get("model-viewer")) return cb();
+      var existing = document.getElementById("mv-lib");
+      if (existing) { existing.addEventListener("load", cb); return; }
+      var s = document.createElement("script");
+      s.type = "module"; s.id = "mv-lib"; s.src = MV_SRC;
+      s.addEventListener("load", cb);
+      document.head.appendChild(s);
+    }
 
-        // Re-trigger the "materialise" animation
-        stage.classList.remove("is-swapping");
-        void stage.offsetWidth;
-        stage.classList.add("is-swapping");
+    function pad(n, len) {
+      n = String(n);
+      while (n.length < len) n = "0" + n;
+      return n;
+    }
+
+    // Build the list of frame URLs from a badge's data-spin-* attributes
+    function buildFrames(b) {
+      var dir = b.getAttribute("data-spin-dir");
+      if (!dir) return null;
+      var count = parseInt(b.getAttribute("data-spin-count"), 10) || 0;
+      if (count < 2) return null;
+      var ext = b.getAttribute("data-spin-ext") || "jpg";
+      var padLen = parseInt(b.getAttribute("data-spin-pad"), 10);
+      if (isNaN(padLen)) padLen = 2;
+      var start = parseInt(b.getAttribute("data-spin-start"), 10);
+      if (isNaN(start)) start = 1;
+      var base = dir.replace(/\/$/, "");
+      var frames = [];
+      for (var i = 0; i < count; i++) {
+        var num = start + i;
+        frames.push(base + "/" + (padLen > 0 ? pad(num, padLen) : num) + "." + ext);
+      }
+      return frames;
+    }
+
+    function teardownSpin() {
+      if (spin) { spin(); spin = null; }
+      stage.classList.remove("is-spin", "is-dragging");
+      if (hint) hint.hidden = true;
+    }
+
+    function teardown3d() {
+      var mv = platform.querySelector(".holo-mv");
+      if (mv) mv.remove();
+      stage.classList.remove("is-3d");
+    }
+
+    function setup3d(badge, token) {
+      var src = badge.getAttribute("data-glb");
+      ensureModelViewer(function () {
+        if (token !== selToken) return; // a newer selection won the race
+        teardown3d();
+        var mv = document.createElement("model-viewer");
+        mv.className = "holo-mv";
+        mv.setAttribute("src", src);
+        mv.setAttribute("poster", badge.getAttribute("data-img"));
+        mv.setAttribute("alt", badge.getAttribute("data-model"));
+        mv.setAttribute("camera-controls", "");
+        mv.setAttribute("auto-rotate", "");
+        mv.setAttribute("touch-action", "pan-y");
+        mv.setAttribute("shadow-intensity", "1");
+        mv.setAttribute("exposure", "1");
+        if (badge.getAttribute("data-usdz")) mv.setAttribute("ios-src", badge.getAttribute("data-usdz"));
+        if (badge.getAttribute("data-ar") === "1") { mv.setAttribute("ar", ""); }
+        platform.appendChild(mv);
+        stage.classList.add("is-3d");
       });
+    }
+
+    function setupSpin(frames) {
+      frames.forEach(function (src) { var im = new Image(); im.src = src; }); // preload
+      var idx = 0;
+      var step = 8;          // px of drag per frame change
+      var dragging = false, lastX = 0, acc = 0;
+
+      stageImg.src = frames[0];
+      stage.classList.add("is-spin");
+      if (hint) hint.hidden = false;
+
+      function show(i) {
+        i = ((i % frames.length) + frames.length) % frames.length;
+        idx = i;
+        stageImg.src = frames[i];
+      }
+      function getX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+      function down(e) { dragging = true; lastX = getX(e); acc = 0; stage.classList.add("is-dragging"); }
+      function move(e) {
+        if (!dragging) return;
+        var x = getX(e);
+        acc += x - lastX; lastX = x;
+        while (acc >= step) { show(idx + 1); acc -= step; }
+        while (acc <= -step) { show(idx - 1); acc += step; }
+        if (e.cancelable) e.preventDefault();
+      }
+      function up() { dragging = false; stage.classList.remove("is-dragging"); }
+
+      stage.addEventListener("mousedown", down);
+      window.addEventListener("mousemove", move);
+      window.addEventListener("mouseup", up);
+      stage.addEventListener("touchstart", down, { passive: true });
+      stage.addEventListener("touchmove", move, { passive: false });
+      window.addEventListener("touchend", up);
+
+      spin = function () {
+        stage.removeEventListener("mousedown", down);
+        window.removeEventListener("mousemove", move);
+        window.removeEventListener("mouseup", up);
+        stage.removeEventListener("touchstart", down);
+        stage.removeEventListener("touchmove", move);
+        window.removeEventListener("touchend", up);
+      };
+    }
+
+    function select(badge) {
+      badges.forEach(function (b) {
+        b.classList.remove("is-active");
+        b.setAttribute("aria-pressed", "false");
+      });
+      badge.classList.add("is-active");
+      badge.setAttribute("aria-pressed", "true");
+
+      selToken++;
+      teardownSpin();
+      teardown3d();
+      stageModel.textContent = badge.getAttribute("data-model");
+
+      if (badge.getAttribute("data-glb")) {
+        setup3d(badge, selToken);
+        stageImg.src = badge.getAttribute("data-img"); // poster shown until lib loads
+      } else {
+        var frames = buildFrames(badge);
+        if (frames) { setupSpin(frames); }
+        else { stageImg.src = badge.getAttribute("data-img"); }
+      }
+
+      // Re-trigger the "materialise" animation
+      stage.classList.remove("is-swapping");
+      void stage.offsetWidth;
+      stage.classList.add("is-swapping");
+    }
+
+    badges.forEach(function (badge) {
+      badge.addEventListener("click", function () { select(badge); });
     });
   })();
 </script>
